@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
+import Image from 'next/image'
 
 const Footer = () => {
   return (
@@ -10,9 +12,11 @@ const Footer = () => {
               <div className='col-lg-3 col-md-6 col-sm-6 col-12'>
                 <div className='footer-widget footer-about mb-40'>
                   <div className='footer-logo'>
-                    <a href='index.html'>
-                      <img src='assets/images/logo/logo.png' alt='logo' />
+                    <Link href="/">
+                    <a>
+                      <Image src='/assets/images/logo/logo.png' alt='logo' width={136} height={33} />
                     </a>
+                    </Link>
                   </div>
                   <p>
                     Lorem ipsum dolor sit amet, cons adipi elit, sed do eiusmod
@@ -20,9 +24,10 @@ const Footer = () => {
                   </p>
                   <div className='payment-img'>
                     <a href='#'>
-                      <img
-                        src='assets/images/icon-img/payment.png'
+                      <Image
+                        src='/assets/images/icon-img/payment.png'
                         alt='logo'
+                        width={270} height={18}
                       />
                     </a>
                   </div>
@@ -55,13 +60,17 @@ const Footer = () => {
                   <h3 className='footer-title'>My Accound</h3>
                   <ul>
                     <li>
-                      <a href='my-account.html'>My Account</a>
+                      <Link href="/myAccount">
+                      <a >My Account</a>
+                      </Link>
                     </li>
                     <li>
                       <a href='#'>Order History</a>
                     </li>
                     <li>
-                      <a href='wishlist.html'>Wish List</a>
+                      <Link href="/wishlist">
+                      <a>Wish List</a>
+                      </Link>
                     </li>
                     <li>
                       <a href='#'>Newsletter</a>

@@ -1200,7 +1200,7 @@ textarea {
 }
 
 .header-height-1 {
-  min-height: 171px;
+  min-height: 121px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2294,7 +2294,9 @@ textarea {
   display: block;
   font-size: 16px;
 }
-
+.slider-area{
+  margin-bottom: 0 !important;
+}
 .swiper-slide-active .single-animation-wrap .slider-animated-1 h3 {
   -webkit-animation-delay: 1.0s;
           animation-delay: 1.0s;
