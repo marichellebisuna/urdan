@@ -9,7 +9,9 @@ import ServiceArea from '../components/Home/ServiceArea';
 import SingleBanner from '../components/Home/SingleBanner';
 import TwoBannerArea from '../components/Home/TwoBannerArea';
 
+
 const index = () => {
+
   return <div className="main-wrapper main-wrapper-2">   
     <HomeSlider/>
     <BannerArea/>

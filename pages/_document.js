@@ -1,7 +1,9 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
+
 class MyDocument extends Document {
   render() {
+   
     return (
       <Html>
         <Head>
@@ -45,6 +47,7 @@ class MyDocument extends Document {
             name='msapplication-TileImage'
             content='/assets/images/favicon/cropped-favicon-270x270.png'
           />
+         
           <link
             rel='icon'
             href='/assets/images/favicon/cropped-favicon-32x32.png'
@@ -79,11 +82,13 @@ class MyDocument extends Document {
           <link rel='stylesheet' href='/assets/css/plugins/select2.min.css' />
           <link rel='stylesheet' href='/assets/css/plugins/easyzoom.css' />
           <link rel='stylesheet' href='/assets/css/plugins/slinky.css' />
-          <link rel='stylesheet' href='/assets/css/style.css' />
+          <link rel='stylesheet' href='/assets/css/style.css' />        
+            
         </Head>
-        <body>        
+        <body >        
           <Main />
-          <NextScript />         
+          <NextScript /> 
+         
         </body>
       </Html>
     );

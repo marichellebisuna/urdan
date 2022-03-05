@@ -1,18 +1,26 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Slider from "react-slick";
+import Script from 'next/script';
+
 
 const Testimonial = () => {
+
+   
   return (
+      <>
+     
     <div className="testimonial-area pb-100">
     <div className="container">
-        <div className="section-title-2 st-border-center text-center mb-75" data-aos="fade-up" data-aos-delay="200">
+        <div className="section-title-2 st-border-center text-center mb-75" >
             <h2>Testimonial</h2>
         </div>
         <div className="testimonial-active swiper-container">
             <div className="swiper-wrapper">
+           
                 <div className="swiper-slide">
-                    <div className="single-testimonial" data-aos="fade-up" data-aos-delay="200">
+                    <div className="single-testimonial" >
                         <div className="testimonial-img">
                             <Image src="/assets/images/testimonial/client-1.png" alt="" width={80} height={80}/>
                         </div>
@@ -24,7 +32,7 @@ const Testimonial = () => {
                     </div>
                 </div>
                 <div className="swiper-slide">
-                    <div className="single-testimonial" data-aos="fade-up" data-aos-delay="400">
+                    <div className="single-testimonial" >
                         <div className="testimonial-img">
                             <Image src="/assets/images/testimonial/client-2.png" alt="" width={80} height={80}/>
                         </div>
@@ -36,7 +44,7 @@ const Testimonial = () => {
                     </div>
                 </div>
                 <div className="swiper-slide">
-                    <div className="single-testimonial" data-aos="fade-up" data-aos-delay="600">
+                    <div className="single-testimonial" >
                         <div className="testimonial-img">
                             <Image src="/assets/images/testimonial/client-1.png" alt="" width={80} height={80}/>
                         </div>
@@ -59,10 +67,12 @@ const Testimonial = () => {
                         </div>
                     </div>
                 </div>
+   
             </div>
         </div>
     </div>
 </div>
+</>
   )
 }
 
