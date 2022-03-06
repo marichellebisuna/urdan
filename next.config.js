@@ -1,4 +1,7 @@
 module.exports = {
-  reactStrictMode: true,
   
+  env:{
+    MONGO_URL:'mongodb+srv://mich:mich@urdan.ytiof.mongodb.net/urdan'
+  },
+ 
 }
