@@ -36,20 +36,28 @@ import {
 
 } from '../constants/productConstants'
 
-// Get all PRODUCTs
-export const getProducts = (req, currentPage = 1, name = '', color, size, price, category) => async (dispatch) => {
+// Get all products
+export const getProducts = (req, currentPage = 1, name = '', color, size, price, category
+  ) => async (dispatch) => {
     try {
 
         const { origin } = absoluteUrl(req);
-
+        const params = {
+          method: "get",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        };
+     
         let link = `${origin}/api/products?page=${currentPage}&name=${name}`
 
-        if (color) link = link.concat(`&guestCapacity=${color}`)
-        if (size) link = link.concat(`&guestCapacity=${size}`)
-        if (price) link = link.concat(`&guestCapacity=${price}`)
+        if (color) link = link.concat(`&color=${color}`)
+        if (size) link = link.concat(`&size=${size}`)
+        if (price) link = link.concat(`&price=${price}`)
         if (category) link = link.concat(`&category=${category}`)
 
-        const { data } = await axios.get(link)
+        const { data } = await axios.get(link, params)
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,

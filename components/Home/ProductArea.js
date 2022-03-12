@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 
 const ProductArea = () => {
+    
   return (
     <div className="product-area pb-100">
     <div className="container">

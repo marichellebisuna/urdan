@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { allProductsReducer, ProductDetailsReducer, newReviewReducer, checkReviewReducer, newProductReducer, ProductReducer, ProductReviewsReducer, reviewReducer } from './ProductReducers'
+import { allProductsReducer, productDetailsReducer, newReviewReducer, checkReviewReducer, newProductReducer, productReducer, productReviewsReducer, reviewReducer } from './ProductReducers'
 
 // import { authReducer, userReducer, loadedUserReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './userReducers'
 
@@ -9,11 +9,11 @@ import { allProductsReducer, ProductDetailsReducer, newReviewReducer, checkRevie
 const reducer = combineReducers({
     allProducts: allProductsReducer,
     newProduct: newProductReducer,
-    ProductDetails: ProductDetailsReducer,
-    Product: ProductReducer,
+    productDetails: productDetailsReducer,
+    product: productReducer,
     newReview: newReviewReducer,
     checkReview: checkReviewReducer,
-    ProductReviews: ProductReviewsReducer,
+    productReviews: productReviewsReducer,
     review: reviewReducer,
     // auth: authReducer,
     // user: userReducer,

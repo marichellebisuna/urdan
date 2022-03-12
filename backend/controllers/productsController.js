@@ -3,51 +3,30 @@ import Product from '../models/productsModel'
 import ErrorHandler from '../../utils/errorHandler'
 import APIFeatures from '../../utils/apiFeatures'
 
-// get all products /api/products/ GET
-const allProducts=asyncHandler(async(req, res)=>{
-
-  // const resPerPage = 4;
-  // const productsCount = await Product.countDocuments();
-
-  // const apiFeatures = new APIFeatures(Product.find(), req.query)
-  // .search()
-  // .filter()
-  
-  // let products = await apiFeatures.query;
-  // let filteredProductsCount = products.length;
-
-  // apiFeatures.pagination(resPerPage)
-  // products = await apiFeatures.query; 
-
-  //   res.status(200).json({
-  //     success: true,
-  //     productsCount,
-  //     resPerPage,
-  //     filteredProductsCount,
-  //     products
-  //   })
-
+// Create all products   =>   /api/products
+const allProducts = asyncHandler(async (req, res) => {
   const resPerPage = 4;
 
-    const productsCount = await Product.countDocuments();
+  const productsCount = await Product.countDocuments();
 
-    const apiFeatures = new APIFeatures(Product.find(), req.query)
-        .search()
-        .filter()
+  const apiFeatures = new APIFeatures(Product.find(), req.query)
+      .search()
+      .filter()
 
-    let products = await apiFeatures.query;
-    let filteredProductsCount = products.length;
+  let products = await apiFeatures.query;
+  let filteredProductsCount = products.length;
 
-    apiFeatures.pagination(resPerPage)
-    // products = await apiFeatures.query;
+  apiFeatures.pagination(resPerPage)
+  // products = await apiFeatures.query;
 
-    res.status(200).json({
-        success: true,
-        productsCount,
-        resPerPage,
-        filteredProductsCount,
-        products
-    })
+  res.status(200).json({
+      success: true,
+      productsCount,
+      resPerPage,
+      filteredProductsCount,
+      products
+  })
+
 })
 
 

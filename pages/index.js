@@ -1,28 +1,22 @@
-import React from 'react';
-import BannerArea from '../components/Home/BannerArea';
-import BrandLogo from '../components/Home/BrandLogo';
-import HomeSlider from '../components/Home/HomeSlider';
-import HotProducts from '../components/Home/HotProducts';
-import ProductArea from '../components/Home/ProductAreaTab';
-import ProductAreaTab from '../components/Home/ProductAreaTab';
-import ServiceArea from '../components/Home/ServiceArea';
-import SingleBanner from '../components/Home/SingleBanner';
-import TwoBannerArea from '../components/Home/TwoBannerArea';
+import { useSelector, useDispatch } from 'react-redux';
+import Home from '../components/Home/Home';
+
+import { getProducts } from '../redux/actions/productActions'
+
+import { wrapper } from '../redux/store'
 
 
-const index = () => {
+export default function Index() {
+  const dispatch = useDispatch()
+  return (
+  <div>    
+   <Home/>
+  </div>
+   )
+}
 
-  return <div className="main-wrapper main-wrapper-2">   
-    <HomeSlider/>
-    <BannerArea/>
-    <ProductAreaTab/>
-    <TwoBannerArea/>
-    <ServiceArea/>
-    <ProductArea/>
-    <SingleBanner/>
-    <HotProducts/>
-    <BrandLogo />    
-  </div>;
-};
+export const getServerSideProps = wrapper.getServerSideProps(async ({ req, query, store }) => {
+  await store.dispatch(getProducts(req, query.page, query.name, query.color, query.size, query.price, query.category))
+ 
+})
 
-export default index;
