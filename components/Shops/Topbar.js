@@ -1,9 +1,13 @@
 import React from 'react'
 import { useState } from 'react';
+import ShopGrid from './ShopGrid';
+import ShopList from './ShopList';
 
 const Topbar = () => {
   const [show, setShow] = useState(true);
+
   return (
+    <>
     <div className="shop-topbar-wrapper mb-40">
       <div className="shop-topbar-left">
           <div className="showing-item">
@@ -20,11 +24,16 @@ const Topbar = () => {
               </select>
           </div>
           <div className="shop-view-mode nav">
-              <a href="#shop-1" data-bs-toggle="tab"><i className=" ti-layout-grid3 " onClick={e=>setShow(!show)}></i> </a>
-              <a className="active" href="#shop-2" data-bs-toggle="tab"><i className=" ti-view-list-alt " onClick={e=>setShow(!show)}></i></a>
+              <a href="#shop-1" data-bs-toggle="tab"><i className=" ti-layout-grid3 " onClick={()=>setShow(!show)}
+              ></i> </a>
+              <a className="active" href="#shop-2" data-bs-toggle="tab"><i className=" ti-view-list-alt " 
+              onClick={()=>setShow(!show)}
+              ></i></a>
           </div>
       </div>
     </div>
+    {show ?<ShopGrid/>:<ShopList/>}
+    </>
   )
 }
 

@@ -78,7 +78,13 @@ export const getProductDetails = (req, id) => async (dispatch) => {
     try {
 
         const { origin } = absoluteUrl(req);
-
+        const params = {
+            method: "get",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          };
         let url;
 
         if (req) {

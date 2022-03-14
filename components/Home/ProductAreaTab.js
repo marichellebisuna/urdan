@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { ALL_PRODUCTS_RESET } from '../../redux/constants/productConstants';
 
 const ProductArea = () => {
+    const dispatch = useDispatch();
     const { products} = useSelector(state => state.allProducts);  
 
+    useEffect(() => {
+     dispatch({type:ALL_PRODUCTS_RESET})
+    }, [])
+    
+   
   return (
     <div className="product-area pb-95">
     <div className="container">

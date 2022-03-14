@@ -5,6 +5,13 @@ import MiniCart from './Home/MiniCart';
 import MobileMenu from './Home/MobileMenu';
 
 const Header = () => {
+  function refreshPage() {
+    setTimeout(()=>{
+        window.location.reload(false);
+    }, 500);
+    console.log('page to reload')
+}
+
   return (
     <>
     <header className='header-area header-responsive-padding header-height-1'>
@@ -13,7 +20,7 @@ const Header = () => {
           <div className='row align-items-center'>
             <div className='col-lg-3 col-md-6 col-6'>
               <div className='logo'>
-                <Link href='/'>
+                <Link href='/' onClick={refreshPage}>
                 <a >
                   <Image src='/assets/images/logo/logo.png' alt='logo' width={136} height={33}/>
                 </a>

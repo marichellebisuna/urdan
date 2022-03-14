@@ -1,6 +1,7 @@
 import {
   ALL_PRODUCTS_SUCCESS,
   ALL_PRODUCTS_FAIL,
+  ALL_PRODUCTS_RESET,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_FAIL,
   NEW_REVIEW_REQUEST,
@@ -41,6 +42,9 @@ import {
 // All products reducer
 export const allProductsReducer = (state = { products: [] }, action) => {
   switch (action.type) {
+    //Products reset
+      case ALL_PRODUCTS_RESET:
+        return {};
 
       case ADMIN_PRODUCTS_REQUEST:
           return {

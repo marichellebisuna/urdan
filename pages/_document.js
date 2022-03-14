@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-
 class MyDocument extends Document {
   render() {
    
@@ -105,7 +104,10 @@ class MyDocument extends Document {
           <script src='/assets/js/plugins/easyzoom.js' ></script>
           <script src='/assets/js/plugins/slinky.min.js' ></script>
           <script src='/assets/js/plugins/ajax-mail.js' ></script>
+          {/* <script src='/assets/js/main.js' ></script> */}
+         
         </Head>
+        
         <body >        
           <Main />
           <NextScript /> 

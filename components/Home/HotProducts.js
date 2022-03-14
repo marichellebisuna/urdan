@@ -1,41 +1,46 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link'
+import { ALL_PRODUCTS_RESET } from '../../redux/constants/productConstants';
 
 const HotProducts = () => {
-    const { products} = useSelector(state => state.allProducts);
-   
-  const [items, setItems] = useState(products)
+    const dispatch = useDispatch(); 
+    useEffect(() => {
+     dispatch({type:ALL_PRODUCTS_RESET}) 
+    }, [dispatch])
 
-  const [productItems, setProductItems] = useState([])
+    function refreshPage() {
+        setTimeout(()=>{
+            window.location.reload(false);
+        }, 500);
+        console.log('page to reload')
+    }
+    
+const { products} = useSelector(state => state.allProducts)
 
-  useEffect( () => {
-    setProductItems( items )
-}, [] )   
-
+const [productItems, setProductItems] = useState(products)
 
 const tempCategory=new Set(products.map(product=>product.category))
 let categories = Array.from(tempCategory)
 categories = ["all", ...categories]
 
 const handleProducts=(category)=>{
-      let tempProducts = [...items]
+      let tempProducts = [...products]
  
      if(category==="all"){
          return setProductItems(tempProducts)
-         console.log(items)
+      
      }
      else{
           let items = tempProducts.filter(products=>products.category===category)
-  return setProductItems(items)
-  console.log(setProductItems)
-     }
- 
+  return setProductItems(items) 
+     } 
 }
-  
+
+
   return (
-    <div className="product-area pb-60">
+    <div className="product-area pb-60" >
     <div className="container">
         <div className="section-title-tab-wrap mb-75">
             <div className="section-title-2" data-aos="fade-up" data-aos-delay="200">
@@ -60,7 +65,7 @@ const handleProducts=(category)=>{
                     productItems.map((item, index)=> <div key={index} className="col-lg-3 col-md-4 col-sm-6 col-12">
                         <div className="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                             <div className="product-img img-zoom mb-25">
-                            <Link href={`/product/${item._id}`}>
+                            <Link href={`/product/${item._id}`} onClick={refreshPage}>
                                 <a>
                                     <Image src={item.images[0].url}alt="" width={270}
         height={300}/>                                </a></Link>
