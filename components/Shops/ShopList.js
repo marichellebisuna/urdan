@@ -1,19 +1,46 @@
-import React, { useEffect } from 'react'
-import Topbar from './Topbar'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux';
-import { ALL_PRODUCTS_RESET } from '../../redux/constants/productConstants';
+
 import Pagination from 'react-js-pagination';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 const ShopList = () => {
-    const dispatch = useDispatch();
-    const { products} = useSelector(state => state.allProducts);  
 
-    useEffect(() => {
-     dispatch({type:ALL_PRODUCTS_RESET})
-    }, [])
-    
+    const router = useRouter()
+
+    const { products,  productsCount, resPerPage, filteredProductsCount,} = useSelector(state => state.allProducts);  
+
+    let { location, page = 1 } = router.query;
+    page = Number(page)
+
+  
+    const handlePagination = (pageNumber) => {
+
+        if (location) {
+            let url = window.location.search
+
+            url.includes('&page') ?
+                url = url.replace(/(page=)[^\&]+/, '$1' + pageNumber)
+                :
+                url = url.concat(`&page=${pageNumber}`)
+
+            router.push(url)
+
+        } else {
+
+            router.push(`/products/?page=${pageNumber}`)
+            
+        }
+
+    }
+
+    let count = productsCount;
+    if (location) {
+        count = filteredRoomsCount
+    }
+
   return (
     <div id="shop-2" className="tab-pane active">
     {products && products.length === 0 
@@ -25,7 +52,7 @@ const ShopList = () => {
         <div className="row">
             <div className="col-lg-4 col-sm-5">
                 <div className="product-list-img">
-                        <Link href="/product/:id">
+                        <Link href={`/product/${product._id}`}>
                     <a >
                         <Image src={product.images[0].url} alt="Product Style" width={270} height={300}/>
                     </a></Link>
@@ -41,7 +68,8 @@ const ShopList = () => {
             </div>
             <div className="col-lg-8 col-sm-7">
                 <div className="shop-list-content">
-                    <h3> <Link href="/product/:id">
+                    <h3><Link href={`/product/${product._id}`}>
+
                     <a >{product.title}</a></Link></h3>
                     <div className="product-price">
                         <span className="old-price">$70.89 </span>
@@ -65,7 +93,22 @@ const ShopList = () => {
         </div>
     </div>
     ))}   
-        <Pagination/>             
+        {resPerPage < count &&
+    <div className="d-flex justify-content-center mt-5">
+        <Pagination
+            activePage={page}
+            itemsCountPerPage={resPerPage}
+            totalItemsCount={productsCount}
+            onChange={handlePagination}
+            nextPageText={'Next'}
+            prevPageText={'Prev'}
+            firstPageText={'First'}
+            lastPageText={'Last'}
+            itemClass='page-item'
+            linkClass='page-link'
+        />
+    </div>
+    }   
     </div>     
  )
 }

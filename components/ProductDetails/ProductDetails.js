@@ -1,32 +1,57 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import Description from './Description'
 import RelatedProducts from './RelatedProducts'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useDispatch, useSelector } from 'react-redux'
-import  { useRouter } from 'next/router'
-import { ALL_PRODUCTS_RESET } from '../../redux/constants/productConstants'
+import { useSelector } from 'react-redux'
+import Breadcrumb from '../Breadcrumb'
+import Script from 'next/script'
+
 
 const ProductDetails = () => {
   const { product} = useSelector(state => state.productDetails);
+console.log(product)
 
-  const dispatch = useDispatch(); 
-  useEffect(() => {
-   dispatch({type:ALL_PRODUCTS_RESET})
-  }, [])
-  
+const [productItem, setProductItem] = useState(product)
+console.log(product)
+
+useEffect(()=>{
+setProductItem(product)
+},[product])
+
+console.log(productItem)
 
   return (
+    <>
+    
+    <Script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.7/swiper-bundle.min.js' strategy="beforeInteractive
+"/>
+  
+    <Script
+        id="product-details-small-img-slider-1"
+        src="/assets/js/main.js"
+       
+      />
+      <Breadcrumb title={product.title}/>
+      {productItem && productItem.images && productItem.images.map((image)=>
+                    <div className="" key={image.public_id}>
+                    <div className="product-details-small-img">
+                        <Image src={image.url} alt="Product Thumnail" width={87} height={96}/>
+                    </div>
+                  </div>
+                  )}
     <div className="product-details-area pb-100 pt-100">
     <div className="container">
       <div className="row">
         <div className="col-lg-6">
           <div className="product-details-img-wrap product-details-vertical-wrap" data-aos="fade-up" data-aos-delay="200">
             <div className="product-details-small-img-wrap">
-              <div className="swiper-container product-details-small-img-slider-1 pd-small-img-style">
+              <div className="swiper-container 
+                product-details-small-img-slider-1 
+              pd-small-img-style">
                 <div className="swiper-wrapper">
-                  {product.images.map((image)=>
-                    <div className="swiper-slide" key={image._id}>
+                  {productItem && productItem.images && productItem.images.map((image)=>
+                    <div className="swiper-slide" key={image.public_id}>
                     <div className="product-details-small-img">
                         <Image src={image.url} alt="Product Thumnail" width={87} height={96}/>
                     </div>
@@ -40,20 +65,22 @@ const ProductDetails = () => {
             </div>
             <div className="swiper-container product-details-big-img-slider-1 pd-big-img-style">
               <div className="swiper-wrapper">
-              {product.images.map((image,index)=>(
-                  <div className="swiper-slide" key={image._id}>
-                  <div className="easyzoom-style">
-                    <div className="easyzoom easyzoom--overlay">
-                      <a href="assets/images/product-details/pro-details-zoom-img-1.png">
-                          <Image src={image.url} alt="" width={470} height={522}/>
-                      </a>
-                    </div>
-                    <a href="assets/images/product-details/pro-details-large-img-1.png" className="easyzoom-pop-up img-popup" >
-                        <i className="pe-7s-search"></i>
-                    </a>
+              {productItem && productItem.images && productItem.images.map((image)=>
+                    <div className="swiper-slide" key={image.public_id}>
+                   <div className="swiper-slide">
+                                        <div className="easyzoom-style">
+                                            <div className="easyzoom easyzoom--overlay">
+                                                <a href={image.url}>
+                                                    <Image src={image.url} alt={image.title} width={470} height={522}/>
+                                                </a>
+                                            </div>
+                                            <a className="easyzoom-pop-up img-popup" href={image.url}>
+                                                <i className="pe-7s-search"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                   </div>
-                  </div>
-              ))}               
+                  )}           
               </div>
             </div>
           </div>
@@ -107,7 +134,7 @@ const ProductDetails = () => {
                 <li><span className="title">Tags:</span>
                 
                   <ul className="tag">
-                    {product.tags.map((tag, index)=>(
+                    {product && product.images && product.tags.map((tag, index)=>(
                         <li key={index} className="mx-2 text-capitalize"><Link href="/products"><a>{tag}</a></Link></li>
                 ))}
                    
@@ -127,6 +154,7 @@ const ProductDetails = () => {
     <Description/>
     <RelatedProducts/>
  </div>
+ </>
   )
 }
 

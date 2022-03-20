@@ -4,6 +4,8 @@ import absoluteUrl from 'next-absolute-url'
 import {
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
+    HOT_PRODUCTS_FAIL,
+    HOT_PRODUCTS_SUCCESS,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
     NEW_REVIEW_REQUEST,
@@ -42,14 +44,7 @@ export const getProducts = (req, currentPage = 1, name = '', color, size, price,
     try {
 
         const { origin } = absoluteUrl(req);
-        const params = {
-          method: "get",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        };
-     
+             
         let link = `${origin}/api/products?page=${currentPage}&name=${name}`
 
         if (color) link = link.concat(`&color=${color}`)
@@ -57,7 +52,7 @@ export const getProducts = (req, currentPage = 1, name = '', color, size, price,
         if (price) link = link.concat(`&price=${price}`)
         if (category) link = link.concat(`&category=${category}`)
 
-        const { data } = await axios.get(link, params)
+        const { data } = await axios.get(link)
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -78,13 +73,7 @@ export const getProductDetails = (req, id) => async (dispatch) => {
     try {
 
         const { origin } = absoluteUrl(req);
-        const params = {
-            method: "get",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          };
+        
         let url;
 
         if (req) {

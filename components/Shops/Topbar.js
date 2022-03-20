@@ -1,17 +1,18 @@
 import React from 'react'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ShopGrid from './ShopGrid';
 import ShopList from './ShopList';
 
 const Topbar = () => {
   const [show, setShow] = useState(true);
-
+  const {  products,  productsCount, resPerPage, filteredProductsCount,} = useSelector(state => state.allProducts);  
   return (
     <>
     <div className="shop-topbar-wrapper mb-40">
       <div className="shop-topbar-left">
           <div className="showing-item">
-              <span>Showing 1–12 of 60 results</span>
+              <span>Showing 1- {resPerPage} of {productsCount} results</span>
           </div>
       </div>
       <div className="shop-topbar-right">

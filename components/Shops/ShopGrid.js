@@ -1,18 +1,45 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import Pagination from './Pagination'
-import { useDispatch, useSelector } from 'react-redux';
-import { ALL_PRODUCTS_RESET } from '../../redux/constants/productConstants';
-import Topbar from './Topbar'
+import { useSelector } from 'react-redux';
+import Pagination from 'react-js-pagination'
+import { useRouter } from 'next/router';
 
 const ShopGrid = () => {
-    const dispatch = useDispatch();
-    const { products} = useSelector(state => state.allProducts);  
+ 
+    const router = useRouter()
 
-    useEffect(() => {
-     dispatch({type:ALL_PRODUCTS_RESET})
-    }, [])
+    const {  products,  productsCount, resPerPage, filteredProductsCount,} = useSelector(state => state.allProducts);  
+
+    let { location, page = 1 } = router.query;
+    page = Number(page)
+  
+
+    const handlePagination = (pageNumber) => {
+
+        if (location) {
+            const { origin } = absoluteUrl(req);
+            let url = window.location.search
+
+            url.includes('&page') ?
+                url = url.replace(/(page=)[^\&]+/, '$1' + pageNumber)
+                :
+                url = url.concat(`&page=${pageNumber}`)
+
+            router.push(url)
+
+        } else {
+
+            router.push(`/products/?page=${pageNumber}`)
+          
+        }
+
+    }
+
+    let count = productsCount;
+    if (location) {
+        count = filteredRoomsCount
+    }
 
   return ( 
 <div id="shop-1" className="tab-pane active">
@@ -25,7 +52,7 @@ const ShopGrid = () => {
                 <div className="col-lg-4 col-md-4 col-sm-6 col-12" key={products._id}>
                 <div className="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                     <div className="product-img img-zoom mb-25">
-                    <Link href="/product/:id">
+                    <Link href={`/product/${product._id}`}>
                         <a >
                             <Image src={product.images[0].url} alt="" width={270} height={300}/>
                         </a>
@@ -44,7 +71,8 @@ const ShopGrid = () => {
                         </div>
                     </div>
                     <div className="product-content">
-                        <h3><Link href="/product/:id"><a >{product.title}</a></Link></h3>
+                        <h3><Link href={`/product/${product._id}`}>
+                                <a >{product.title}</a></Link></h3>
                         <div className="product-price">
                             <span className="old-price">$25.89 </span>
                             <span className="new-price">${product.price} </span>
@@ -54,7 +82,23 @@ const ShopGrid = () => {
                 </div>
         ))}  
     </div>
-    <Pagination/>
+
+    {resPerPage < count &&
+    <div className="d-flex justify-content-center mt-5">
+        <Pagination
+            activePage={page}
+            itemsCountPerPage={resPerPage}
+            totalItemsCount={productsCount}
+            onChange={handlePagination}
+            nextPageText={'Next'}
+            prevPageText={'Prev'}
+            firstPageText={'First'}
+            lastPageText={'Last'}
+            itemClass='page-item'
+            linkClass='page-link'
+        />
+    </div>
+    }
 </div>    
    
   )

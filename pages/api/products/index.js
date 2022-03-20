@@ -5,7 +5,7 @@ import dbConnect from '../../../config/dbConnect'
 
 const handler=nc({ErrorHandler})
 
-dbConnect()
+ dbConnect()
 
 handler.get(allProducts).post(newProduct)
 

@@ -33,6 +33,7 @@ const products = () => {
 export default products
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ req, query, store }) => {
+  //  await store.dispatch({type:ALL_PRODUCTS_RESET})
   await store.dispatch(getProducts(req, query.page, query.name, query.color, query.size, query.price, query.category))
- await store.dispatch({type:ALL_PRODUCTS_RESET})
+
 })

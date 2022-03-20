@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
-import { allProductsReducer, productDetailsReducer, newReviewReducer, checkReviewReducer, newProductReducer, productReducer, productReviewsReducer, reviewReducer } from './ProductReducers'
+import { allProductsReducer, productDetailsReducer, newReviewReducer, checkReviewReducer, newProductReducer, productReducer, productReviewsReducer, reviewReducer} from './ProductReducers'
 
 // import { authReducer, userReducer, loadedUserReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './userReducers'
 
 // import { checkBookingReducer, bookedDatesReducer, bookingsReducer, bookingDetailsReducer, bookingReducer } from './bookingReducers'
 
 const reducer = combineReducers({
-    allProducts: allProductsReducer,
+    allProducts: allProductsReducer, 
     newProduct: newProductReducer,
     productDetails: productDetailsReducer,
     product: productReducer,

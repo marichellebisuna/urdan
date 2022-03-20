@@ -5,9 +5,10 @@ import APIFeatures from '../../utils/apiFeatures'
 
 // Create all products   =>   /api/products
 const allProducts = asyncHandler(async (req, res) => {
-  const resPerPage = 4;
+  const resPerPage = 15;
 
   const productsCount = await Product.countDocuments();
+
 
   const apiFeatures = new APIFeatures(Product.find(), req.query)
       .search()
@@ -17,17 +18,19 @@ const allProducts = asyncHandler(async (req, res) => {
   let filteredProductsCount = products.length;
 
   apiFeatures.pagination(resPerPage)
-  // products = await apiFeatures.query;
+  products = await apiFeatures.query.clone();
 
   res.status(200).json({
       success: true,
       productsCount,
       resPerPage,
       filteredProductsCount,
-      products
+      products,
+    
   })
 
 })
+
 
 
 //create new product /api/products/ POST
@@ -88,5 +91,6 @@ export {
   newProduct,
   getProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  
 }

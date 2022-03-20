@@ -9,7 +9,6 @@ import ProductAreaTab from './ProductAreaTab';
 import ServiceArea from './ServiceArea';
 import SingleBanner from './SingleBanner';
 import TwoBannerArea from './TwoBannerArea';
-import { useSelector } from 'react-redux';
 
 const Home = () => {
  
@@ -27,3 +26,4 @@ return <div className="main-wrapper main-wrapper-2">
 };
 
 export default Home;
+

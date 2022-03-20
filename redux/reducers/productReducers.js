@@ -56,7 +56,8 @@ export const allProductsReducer = (state = { products: [] }, action) => {
               productsCount: action.payload.productsCount,
               resPerPage: action.payload.resPerPage,
               filteredProductsCount: action.payload.filteredProductsCount,
-              products: action.payload.products
+              products: action.payload.products,
+            
           }
 
       case ADMIN_PRODUCTS_SUCCESS:
@@ -80,7 +81,7 @@ export const allProductsReducer = (state = { products: [] }, action) => {
       default:
           return state
   }
-}
+}  
 
 // PRODUCT details reducer
 export const productDetailsReducer = (state = { product: {} }, action) => {

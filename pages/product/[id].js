@@ -1,16 +1,14 @@
 import React from 'react'
-import Breadcrumb from '../../components/Breadcrumb'
 import ProductDetails from '../../components/ProductDetails/ProductDetails'
 import { getProductDetails } from '../../redux/actions/productActions'
 import { wrapper } from '../../redux/store'
 
 
-export default function Index() {
+export default function ProductDetailsPage() {
  
   return (
     <>    
-     <Breadcrumb title='product details'/>
-     <ProductDetails/>       
+        <ProductDetails/>       
     </>
   
   )
