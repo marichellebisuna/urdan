@@ -6,40 +6,53 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import Breadcrumb from '../Breadcrumb'
 import Script from 'next/script'
-
+import Swiper, { Navigation} from 'swiper'; 
+import 'swiper/css/bundle';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const ProductDetails = () => {
-  const { product} = useSelector(state => state.productDetails);
-console.log(product)
-
+const { product} = useSelector(state => state.productDetails);
 const [productItem, setProductItem] = useState(product)
-console.log(product)
 
 useEffect(()=>{
 setProductItem(product)
 },[product])
 
-console.log(productItem)
+const swiper = new Swiper('.product-slider-active-1', {
+  loop: true,
+  spaceBetween: 30,
+  observer: true,
+  modules:[Navigation],
+          observeParents:true,
+          parallax:true,
+  navigation: {
+      nextEl: '.product-next-1',
+      prevEl: '.product-prev-1',
+  },
+  breakpoints: {
+      320: {
+          slidesPerView: 1
+      },
+      576: {
+          slidesPerView: 2
+      },
+      768: {
+          slidesPerView: 3
+      },
+      992: {
+          slidesPerView: 3
+      },
+      1200: {
+          slidesPerView: 4
+      }
+  },
+  });
 
   return (
     <>
-    
-    <Script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.0.7/swiper-bundle.min.js' strategy="beforeInteractive
-"/>
-  
-    <Script
-        id="product-details-small-img-slider-1"
-        src="/assets/js/main.js"
-       
-      />
       <Breadcrumb title={product.title}/>
-      {productItem && productItem.images && productItem.images.map((image)=>
-                    <div className="" key={image.public_id}>
-                    <div className="product-details-small-img">
-                        <Image src={image.url} alt="Product Thumnail" width={87} height={96}/>
-                    </div>
-                  </div>
-                  )}
+      
     <div className="product-details-area pb-100 pt-100">
     <div className="container">
       <div className="row">

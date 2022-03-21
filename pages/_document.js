@@ -107,7 +107,7 @@ class MyDocument extends Document {
           <script type="text/javascript" src='/assets/js/plugins/jquery-ui-touch-punch.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/jquery.nice-select.min.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/waypoints.min.js'  crossorigin="anonymous"></script>
-          <script type="text/javascript" src='/assets/js/plugins/counterup.min.js'  crossorigin="anonymous"></script>
+          {/* <script type="text/javascript" src='/assets/js/plugins/counterup.min.js'  crossorigin="anonymous"></script> */}
           <script type="text/javascript" src='/assets/js/plugins/select2.min.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/easyzoom.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/slinky.min.js'  crossorigin="anonymous"></script>

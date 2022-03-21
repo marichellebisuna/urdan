@@ -351,10 +351,10 @@
     $('.nice-select').niceSelect();
     
     /*---- CounterUp ----*/
-    $('.count').counterUp({
-        delay: 10,
-        time: 2000
-    });
+    // $('.count').counterUp({
+    //     delay: 10,
+    //     time: 2000
+    // });
     
     /*---------------------
         Select active
