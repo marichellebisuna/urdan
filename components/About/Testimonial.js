@@ -6,7 +6,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import img1 from '../../public/assets/images/testimonial/client-1.png'
 import img2 from '../../public/assets/images/testimonial/client-2.png'
-import bg from '../../public/assets/images/bg/bg-4.png'
 
 const Testimonial = () => {
     

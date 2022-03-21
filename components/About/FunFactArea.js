@@ -1,9 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
+import bg from '../../public/assets/images/bg/bg-4.png'
 
 const FunFactArea = () => {
   return (
-    <div className="funfact-area bg-img pt-100 pb-70" style={{backgroundImage:"url(assets/images/bg/bg-4.png)"}}>
+    <div className="funfact-area bg-img pt-100 pb-70" style={{backgroundImage: `url(${bg.src})`,
+    width: '100%',
+    height: '100%'}}>
     <div className="container">
         <div className="row">
             <div className="col-lg-3 col-md-3 col-sm-6 col-6">
