@@ -8,7 +8,7 @@ import Breadcrumb from '../Breadcrumb'
 import Script from 'next/script'
 import Head from "next/head";
 
-import Swiper, { Navigation, Thumbs, FreeMode, Zoom} from 'swiper'; 
+import Swiper,{ Navigation, Thumbs, FreeMode, Zoom} from 'swiper'; 
 
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -25,12 +25,13 @@ setProductItem(product)
 
 },[product])
 
+Swiper.use([Navigation, Thumbs, FreeMode, Zoom]);
 const productDetailsSmallOne = new Swiper('.product-details-small-img-slider-1', {
   loop: false,
   spaceBetween: 12,
   slidesPerView: 4,
   observer: true,
-  modules:[Navigation, Thumbs, FreeMode, Zoom],
+  modules:[Navigation, Thumbs, FreeMode],
   zoom:true,
   observeParents:true,
   parallax:true,
@@ -94,12 +95,16 @@ const productDetailsBigThree = new Swiper('.product-details-big-img-slider-1', {
                 product-details-small-img-slider-1 
               pd-small-img-style">
                 <div id="productDetailsSmallOne" className="swiper-wrapper">
+               
                   {productItem && productItem.images && productItem.images.map((image)=>
-                    <div className="swiper-slide " key={image.public_id}>
+                      
+                   
+                   <div className="swiper-slide " key={image.public_id}>
                     <div className="product-details-small-img ">
                         <Image src={image.url} alt="Product Thumnail" width={87} height={96}/>
                     </div>
                   </div>
+                   
                   )}
                  
                 </div>
@@ -109,30 +114,34 @@ const productDetailsBigThree = new Swiper('.product-details-big-img-slider-1', {
             </div>
             
             <div className="swiper swiper-container product-details-big-img-slider-1 pd-big-img-style">
-              <div id="productDetailsBigThree" className="swiper-wrapper">
+              <div id="productDetailsBigThree" className="swiper-wrapper">        
+           
               {productItem && productItem.images && productItem.images.map((image)=>
-                    <div className="swiper-slide " key={image.public_id} >
+              
+                   <div className="swiper-slide " key={image.public_id} >
                    {/* <div className="swiper-zoom-container"> */}
                    
-                      <div className="zoom-style swiper-zoom-container" data-swiper-zoom="10">
-                          <div className=" zoom zoom--overlay " >
-                              <a href={image.url} className="">
+                      <div className="zoom-style " data-swiper-zoom="10">
+                          <div className=" zoom zoom--overlay " >                            
+                              {/* <a href={image.url} > */}
                                   <Image src={image.url} alt={image.title} width={470} height={522}/>
-                              </a>
+                              {/* </a> */}
                               {/* <div
-                                className="swiper-zoom-container"
+                                
                                 style={{backgroundImage: `url(${image.url})`, width:"470", height:"522"}}
                               ></div> */}
                           </div>
                           
-                          <a className="zoom-pop-up img-popup" href={image.url}>
+                          {/* <a className="zoom-pop-up img-popup" href={image.url}>
                               <i className="pe-7s-search"></i>
-                          </a>
+                          </a> */}
                       </div>
                    
                   {/* </div> */}
                   </div>
-                  )}           
+              
+                  )} 
+          
               </div>
             </div>
           </div>
@@ -145,13 +154,20 @@ const productDetailsBigThree = new Swiper('.product-details-big-img-slider-1', {
               <span className="new-price">${product.price}</span>
             </div>
             <div className="product-details-review">
-              <div className="product-rating">
+            <div className="rating-outer ">
+                <div
+                    className="rating-inner "
+                    style={{ width: `${(product.rating / 5) * 100}%` }}
+                ></div>
+            </div>
+              {/* <div className="product-rating">
+               
                   <i className=" ti-star"></i>
                   <i className=" ti-star"></i>
                   <i className=" ti-star"></i>
                   <i className=" ti-star"></i>
                   <i className=" ti-star"></i>
-              </div>
+              </div> */}
               <span>( 1 Customer Review )</span>
             </div>
             <div className="product-color product-color-active product-details-color">

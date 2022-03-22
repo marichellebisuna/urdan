@@ -84,6 +84,35 @@
   scroll-behavior: unset;
 }
 
+/* Ratings */
+.rating-outer {
+  display: inline-block;
+  position: relative;
+  font-family: FontAwesome;
+  font-size: larger;  
+  color: #e97730;  
+}
+
+.rating-outer::before {
+  content: '\f006 \f006 \f006 \f006 \f006'; 
+}
+
+.rating-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  padding-right: 20px;
+  overflow: hidden;
+  width: 0;
+  
+}
+
+.rating-inner::before {
+  content: '\f005 \f005 \f005 \f005 \f005';
+  color: #e97730;
+}
+
 /*-- Common Style --*/
 *,
 *::after,

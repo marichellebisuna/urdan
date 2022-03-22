@@ -1,8 +1,22 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Description = () => {
+
+const { product} = useSelector(state => state.productDetails);
+const [productItem, setProductItem] = useState(product)
+  console.log(product)
+
+  useEffect(()=>{
+ 
+    setProductItem(product)
+    
+    },[product])
+
   return (
     <div className="description-review-area pb-85 py-5">
       <div className="container">
@@ -14,8 +28,8 @@ const Description = () => {
         <div className="tab-content">
           <div id="des-details1" className="tab-pane active">
               <div className="product-description-content text-center">
-                  <p data-aos="fade-up" data-aos-delay="200">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercita ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                  <p data-aos="fade-up" data-aos-delay="400">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut per unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo</p>
+                  <p data-aos="fade-up" data-aos-delay="200"> {product.content}</p>
+                  {/* <p data-aos="fade-up" data-aos-delay="400">{product.content}</p> */}
               </div>
           </div>
           <div id="des-details2" className="tab-pane">
