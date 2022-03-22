@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
+
 import Swiper, { Navigation} from 'swiper'; 
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -12,18 +13,14 @@ const { products} = useSelector(state => state.allProducts);
     
 const [productItems, setProductItems] = useState(products)
 
-useEffect(()=>{
-   
+useEffect(()=>{   
 setProductItems(products)
 },[products])
 
 const swiper = new Swiper('.product-slider-active-1', {
 loop: true,
 spaceBetween: 30,
-observer: true,
 modules:[Navigation],
-        observeParents:true,
-        parallax:true,
 navigation: {
     nextEl: '.product-next-1',
     prevEl: '.product-prev-1',

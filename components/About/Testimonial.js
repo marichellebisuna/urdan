@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Image from 'next/image'
-import Swiper, { Navigation} from 'swiper'; 
+import Swiper, { Autoplay } from 'swiper'; 
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,11 +13,12 @@ const Testimonial = () => {
         const swiper = new Swiper('.testimonial-active', {
         loop: true,
         spaceBetween: 30,
-        centeredSlides: true,
-        // modules:[Navigation],
-        autoplay: {
-            delay: 1000,
-          },
+        centeredSlides: true, 
+        modules:[ Autoplay],
+        autoplay:{
+            delay: 2500,
+            disableOnInteraction: false,
+          },     
         breakpoints: {
             320: {
                 slidesPerView: 1
@@ -37,8 +38,9 @@ const Testimonial = () => {
                 slidesPerView: 3
             }
         },
+    
     });
-swiper
+
         },[])
   return (
       <>
@@ -48,10 +50,10 @@ swiper
         <div className="section-title-2 st-border-center text-center mb-75" >
             <h2>Testimonial</h2>
         </div>
-        <div className="testimonial-active swiper-container swiper">
+        <div className="swiper testimonial-active swiper-container ">
             <div id="sliderActiveSeven" className="swiper-wrapper">
            
-                <div className="swiper-slide">
+                <div className="swiper-slide" data-swiper-autoplay="2000">
                     <div className="single-testimonial" >
                         <div className="testimonial-img">
                             <Image src={img1} alt="" width={80} height={80}/>
@@ -63,7 +65,7 @@ swiper
                         </div>
                     </div>
                 </div>
-                <div className="swiper-slide">
+                <div className="swiper-slide" data-swiper-autoplay="2000">
                     <div className="single-testimonial" >
                         <div className="testimonial-img">
                             <Image src={img2} alt="" width={80} height={80}/>
@@ -75,7 +77,7 @@ swiper
                         </div>
                     </div>
                 </div>
-                <div className="swiper-slide">
+                <div className="swiper-slide" data-swiper-autoplay="2000">
                     <div className="single-testimonial" >
                         <div className="testimonial-img">
                             <Image src={img1} alt="" width={80} height={80}/>
@@ -87,7 +89,7 @@ swiper
                         </div>
                     </div>
                 </div>
-                <div className="swiper-slide">
+                <div className="swiper-slide" data-swiper-autoplay="2000">
                     <div className="single-testimonial">
                         <div className="testimonial-img">
                             <Image src={img2} alt="" width={80} height={80}/>

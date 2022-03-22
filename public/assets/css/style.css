@@ -2294,7 +2294,7 @@ textarea {
   display: block;
   font-size: 16px;
 }
-.slider-area{
+.slider-areas{
   margin-bottom: 0 !important;
 }
 .swiper-slide-active .single-animation-wrap .slider-animated-1 h3 {
@@ -8049,28 +8049,28 @@ textarea {
   right: 0;
 }
 
-.easyzoom-style {
+.zoom-style {
   position: relative;
 }
 
-.easyzoom-style .easyzoom {
+.zoom-style .zoom {
   display: block;
 }
 
-.easyzoom-style .easyzoom > a {
+.zoom-style .zoom > a {
   -webkit-transition: none;
   -o-transition: none;
   transition: none;
 }
 
-.easyzoom-style .easyzoom > a img {
+.zoom-style .zoom > a img {
   width: 100%;
   -webkit-transition: none;
   -o-transition: none;
   transition: none;
 }
 
-.easyzoom-style a.easyzoom-pop-up {
+.zoom-style a.zoom-pop-up {
   position: absolute;
   right: 20px;
   top: 20px;
@@ -8088,11 +8088,11 @@ textarea {
           box-shadow: 0 0 19px 2.9px rgba(0, 0, 0, 0.02);
 }
 
-.easyzoom-style a.easyzoom-pop-up i {
+.zoom-style a.zoom-pop-up i {
   line-height: 50px;
 }
 
-.easyzoom-style a.easyzoom-pop-up:hover {
+.zoom-style a.zoom-pop-up:hover {
   background-color: #e97730;
   color: #ffffff;
 }

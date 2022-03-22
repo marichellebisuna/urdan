@@ -6,66 +6,97 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import Breadcrumb from '../Breadcrumb'
 import Script from 'next/script'
-import Swiper, { Navigation} from 'swiper'; 
+import Head from "next/head";
+
+import Swiper, { Navigation, Thumbs, FreeMode, Zoom} from 'swiper'; 
+
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import 'swiper/css/zoom';
 
 const ProductDetails = () => {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 const { product} = useSelector(state => state.productDetails);
 const [productItem, setProductItem] = useState(product)
 
 useEffect(()=>{
+ 
 setProductItem(product)
+
 },[product])
 
-const swiper = new Swiper('.product-slider-active-1', {
-  loop: true,
-  spaceBetween: 30,
+const productDetailsSmallOne = new Swiper('.product-details-small-img-slider-1', {
+  loop: false,
+  spaceBetween: 12,
+  slidesPerView: 4,
   observer: true,
-  modules:[Navigation],
-          observeParents:true,
-          parallax:true,
+  modules:[Navigation, Thumbs, FreeMode, Zoom],
+  zoom:true,
+  observeParents:true,
+  parallax:true,
+  direction: 'vertical',
   navigation: {
-      nextEl: '.product-next-1',
-      prevEl: '.product-prev-1',
+      nextEl: '.pd-next',
+      prevEl: '.pd-prev',
   },
   breakpoints: {
-      320: {
-          slidesPerView: 1
+      0: {
+          slidesPerView: 2,
       },
       576: {
-          slidesPerView: 2
-      },
-      768: {
-          slidesPerView: 3
+          slidesPerView: 4,
       },
       992: {
-          slidesPerView: 3
+          slidesPerView: 3,
       },
       1200: {
-          slidesPerView: 4
-      }
+          slidesPerView: 4,
+      },
+  }
+});
+
+const productDetailsBigThree = new Swiper('.product-details-big-img-slider-1', {
+  autoplay: false,
+  delay: 5000,
+  slidesPerView: 1,
+  loop: false,
+  observer: true,
+  modules:[Navigation, Thumbs, FreeMode, Zoom],
+  observeParents:true,
+  parallax:true,
+  thumbs: {
+      swiper: productDetailsSmallOne
   },
-  });
+  zoom: true,
+  // zoom: {
+  //   maxRatio: 3,
+  //   minRatio: 1,
+  //   // toggle:true
+  // },
+  keyboard: {
+    enabled: true,
+     },
+  
+});
+
 
   return (
     <>
-      <Breadcrumb title={product.title}/>
-      
+    <Breadcrumb title={product.title}/>
+    
     <div className="product-details-area pb-100 pt-100">
     <div className="container">
       <div className="row">
         <div className="col-lg-6">
           <div className="product-details-img-wrap product-details-vertical-wrap" data-aos="fade-up" data-aos-delay="200">
             <div className="product-details-small-img-wrap">
-              <div className="swiper-container 
+              <div className="swiper swiper-container 
                 product-details-small-img-slider-1 
               pd-small-img-style">
-                <div className="swiper-wrapper">
+                <div id="productDetailsSmallOne" className="swiper-wrapper">
                   {productItem && productItem.images && productItem.images.map((image)=>
-                    <div className="swiper-slide" key={image.public_id}>
-                    <div className="product-details-small-img">
+                    <div className="swiper-slide " key={image.public_id}>
+                    <div className="product-details-small-img ">
                         <Image src={image.url} alt="Product Thumnail" width={87} height={96}/>
                     </div>
                   </div>
@@ -76,22 +107,30 @@ const swiper = new Swiper('.product-slider-active-1', {
               <div className="pd-prev pd-nav-style"> <i className="ti-angle-up"></i></div>
               <div className="pd-next pd-nav-style"> <i className="ti-angle-down"></i></div>
             </div>
-            <div className="swiper-container product-details-big-img-slider-1 pd-big-img-style">
-              <div className="swiper-wrapper">
+            
+            <div className="swiper swiper-container product-details-big-img-slider-1 pd-big-img-style">
+              <div id="productDetailsBigThree" className="swiper-wrapper">
               {productItem && productItem.images && productItem.images.map((image)=>
-                    <div className="swiper-slide" key={image.public_id}>
-                   <div className="swiper-slide">
-                                        <div className="easyzoom-style">
-                                            <div className="easyzoom easyzoom--overlay">
-                                                <a href={image.url}>
-                                                    <Image src={image.url} alt={image.title} width={470} height={522}/>
-                                                </a>
-                                            </div>
-                                            <a className="easyzoom-pop-up img-popup" href={image.url}>
-                                                <i className="pe-7s-search"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                    <div className="swiper-slide " key={image.public_id} >
+                   {/* <div className="swiper-zoom-container"> */}
+                   
+                      <div className="zoom-style swiper-zoom-container" data-swiper-zoom="10">
+                          <div className=" zoom zoom--overlay " >
+                              <a href={image.url} className="">
+                                  <Image src={image.url} alt={image.title} width={470} height={522}/>
+                              </a>
+                              {/* <div
+                                className="swiper-zoom-container"
+                                style={{backgroundImage: `url(${image.url})`, width:"470", height:"522"}}
+                              ></div> */}
+                          </div>
+                          
+                          <a className="zoom-pop-up img-popup" href={image.url}>
+                              <i className="pe-7s-search"></i>
+                          </a>
+                      </div>
+                   
+                  {/* </div> */}
                   </div>
                   )}           
               </div>

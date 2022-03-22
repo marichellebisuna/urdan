@@ -75,7 +75,10 @@ class MyDocument extends Document {
           <link rel='stylesheet' href='/assets/css/plugins/animate.css' />
           <link rel='stylesheet' href='/assets/css/plugins/aos.css' />
           <link rel='stylesheet' href='/assets/css/plugins/magnific-popup.css' />
-          <link rel='stylesheet' href='/assets/css/plugins/swiper.min.css' />
+          <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
           <link rel='stylesheet' href='/assets/css/plugins/jquery-ui.css' />
           <link rel='stylesheet' href='/assets/css/plugins/nice-select.css' />
           <link rel='stylesheet' href='/assets/css/plugins/select2.min.css' />
@@ -100,7 +103,7 @@ class MyDocument extends Document {
           <script type="text/javascript" src='/assets/js/plugins/aos.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/magnific-popup.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/jquery.syotimer.min.js'  crossorigin="anonymous"></script>
-          <script type="text/javascript" src='/assets/js/plugins/swiper.min.js' async crossorigin="anonymous"></script>
+          <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
           <script type="text/javascript" src='/assets/js/plugins/imagesloaded.pkgd.min.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/isotope.pkgd.min.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/jquery-ui.js'  crossorigin="anonymous"></script>
@@ -109,7 +112,7 @@ class MyDocument extends Document {
           <script type="text/javascript" src='/assets/js/plugins/waypoints.min.js'  crossorigin="anonymous"></script>
           {/* <script type="text/javascript" src='/assets/js/plugins/counterup.min.js'  crossorigin="anonymous"></script> */}
           <script type="text/javascript" src='/assets/js/plugins/select2.min.js'  crossorigin="anonymous"></script>
-          <script type="text/javascript" src='/assets/js/plugins/easyzoom.js'  crossorigin="anonymous"></script>
+          {/* <script type="text/javascript" src='/assets/js/plugins/easyzoom.js'  async></script> */}
           <script type="text/javascript" src='/assets/js/plugins/slinky.min.js'  crossorigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/ajax-mail.js'  crossorigin="anonymous"></script>
           {/* <script type="text/javascript" src='/assets/js/main.js' crossorigin="anonymous"></script> */}

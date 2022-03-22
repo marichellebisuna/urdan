@@ -1,10 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 
+import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper";
+
 
 const BrandLogo = () => {
   return (
@@ -15,8 +16,8 @@ const BrandLogo = () => {
             <Swiper
         slidesPerView={5}
         loop={true}
-        autoplay={{ delay: 3000 }}
-        modules={[Pagination]}
+        autoplay={{ delay: 2000 }}
+        modules={[Autoplay]}
         className="mySwiper"
       >
         <SwiperSlide>        <div className="swiper-slide">
