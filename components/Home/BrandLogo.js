@@ -20,7 +20,7 @@ const BrandLogo = () => {
         modules={[Autoplay]}
         className="mySwiper"
       >
-        <SwiperSlide>        <div className="swiper-slide">
+        <SwiperSlide><div className="swiper-slide">
                     <div className="single-brand-logo" data-aos="fade-up" data-aos-delay="200">
                         <a href="#"><Image src="/assets/images/brand-logo/brand-logo-1.png" alt="" width={72}
         height={102}/></a>
