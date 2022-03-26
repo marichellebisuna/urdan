@@ -3,14 +3,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import MiniCart from './Home/MiniCart';
 import MobileMenu from './Home/MobileMenu';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Search from './Search';
 
 const Header = () => {
-  function refreshPage() {
-    setTimeout(()=>{
-        window.location.reload(false);
-    }, 500);
-    console.log('page to reload')
-}
 
   return (
     <>
@@ -20,7 +17,7 @@ const Header = () => {
           <div className='row align-items-center'>
             <div className='col-lg-3 col-md-6 col-6'>
               <div className='logo'>
-                <Link href='/' onClick={refreshPage}>
+                <Link href='/' >
                 <a >
                   <Image src='/assets/images/logo/logo.png' alt='logo' width={136} height={33}/>
                 </a>
@@ -60,14 +57,9 @@ const Header = () => {
                     <i className='pe-7s-search s-open'></i>
                     <i className='pe-7s-close s-close'></i>
                   </a>
-                  <div className='search-wrap-1'>
-                    <form action='#'>
-                      <input placeholder='Search products…' type='text' />
-                      <button className='button-search'>
-                        <i className='pe-7s-search'></i>
-                      </button>
-                    </form>
-                  </div>
+                  
+                 <Search/>
+                  
                 </div>
                 <div className='header-action-style'>
                   <Link href='/login'>

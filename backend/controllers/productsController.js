@@ -1,24 +1,27 @@
-import asyncHandler from '../../middleware/asyncHandler'
+import catchAsyncErrors from '../../middleware/catchAsyncErrors'
 import Product from '../models/productsModel'
 import ErrorHandler from '../../utils/errorHandler'
 import APIFeatures from '../../utils/apiFeatures'
 
 // Create all products   =>   /api/products
-const allProducts = asyncHandler(async (req, res) => {
-  const resPerPage = 15;
+const allProducts = catchAsyncErrors(async (req, res) => {
+  const resPerPage =10;
 
-  const productsCount = await Product.countDocuments();
+ const productsCount = await Product.countDocuments();
+
 
 
   const apiFeatures = new APIFeatures(Product.find(), req.query)
       .search()
       .filter()
+     
 
   let products = await apiFeatures.query;
   let filteredProductsCount = products.length;
 
   apiFeatures.pagination(resPerPage)
   products = await apiFeatures.query.clone();
+
 
   res.status(200).json({
       success: true,
@@ -34,13 +37,13 @@ const allProducts = asyncHandler(async (req, res) => {
 
 
 //create new product /api/products/ POST
-const newProduct=asyncHandler(async(req, res)=>{  
+const newProduct=catchAsyncErrors(async(req, res)=>{  
     const product = await Product.create(req.body)
     res.status(200).json({success:true, product})
 })
 
 // get single product by id /api/products/:id GET
-const getProduct = asyncHandler(async (req, res, next) => {
+const getProduct = catchAsyncErrors(async (req, res, next) => {
 
   const product = await Product.findById(req.query.id);
 
@@ -55,7 +58,7 @@ const getProduct = asyncHandler(async (req, res, next) => {
 })
 
   // update a product by id /api/products/:id PUT
-const updateProduct=asyncHandler(async(req, res, next)=>{
+const updateProduct=catchAsyncErrors(async(req, res, next)=>{
 
   let product = await Product.findById(req.query.id)
 
@@ -71,7 +74,7 @@ const updateProduct=asyncHandler(async(req, res, next)=>{
   })
 
   // delete a product by id /api/products/:id PUT
-const deleteProduct=asyncHandler(async(req, res, next)=>{
+const deleteProduct=catchAsyncErrors(async(req, res, next)=>{
 
   let product = await Product.findById(req.query.id)
 

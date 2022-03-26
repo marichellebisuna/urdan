@@ -39,7 +39,7 @@ import {
 } from '../constants/productConstants'
 
 // Get all products
-export const getProducts = (req, currentPage = 1, name = '', color, size, price, category
+export const getProducts = (req, currentPage = 1, name = '', color, size, price, category, tags
   ) => async (dispatch) => {
     try {
 
@@ -51,6 +51,7 @@ export const getProducts = (req, currentPage = 1, name = '', color, size, price,
         if (size) link = link.concat(`&size=${size}`)
         if (price) link = link.concat(`&price=${price}`)
         if (category) link = link.concat(`&category=${category}`)
+        if (tags) link = link.concat(`&tags=${tags}`)
 
         const { data } = await axios.get(link)
 

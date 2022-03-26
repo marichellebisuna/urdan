@@ -5,8 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import Breadcrumb from '../Breadcrumb'
-import Script from 'next/script'
-import Head from "next/head";
 
 import Swiper,{ Navigation, Thumbs, FreeMode, Zoom} from 'swiper'; 
 
@@ -15,7 +13,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/zoom';
 
 const ProductDetails = () => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 const { product} = useSelector(state => state.productDetails);
 const [productItem, setProductItem] = useState(product)
 
@@ -219,7 +216,7 @@ const productDetailsBigThree = new Swiper('.product-details-big-img-slider-1', {
         </div>
       </div>
     </div>
-    <Description/>
+    <Description product={product}/>
     <RelatedProducts/>
  </div>
  </>
