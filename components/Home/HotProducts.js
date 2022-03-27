@@ -15,15 +15,15 @@ const HotProducts = () => {
 const { products} = useSelector(state => state.allProducts)
 
 const [productItems, setProductItems] = useState(products)
-console.log(products)
+
 useEffect(()=>{
 setProductItems(products)
 },[products])
-console.log(productItems)
+
 const tempCategory=new Set(products.map(product=>product.category))
 let categories = Array.from(tempCategory)
 categories = ["all", ...categories]
-console.log(categories)
+
 const handleProducts=(category)=>{
       let tempProducts = [...products]
  
@@ -37,7 +37,7 @@ const handleProducts=(category)=>{
 
      } 
 }
-  console.log(productItems)
+ 
 
   return (
     <div className="product-area pb-60" >

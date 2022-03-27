@@ -1,18 +1,16 @@
 import NextAuth from 'next-auth';
-import Credentials from 'next-auth/providers/credentials'
-
+import CredentialsProvider from 'next-auth/providers/credentials';
 import User from '../../../backend/models/userModel'
 import dbConnect from '../../../config/dbConnect'
 
 export default NextAuth({
-    // session: {
-    //     jwt: true
-    // },
-    session:{
+   
+    session: {
         strategy:"jwt"
-    },
+    },   
     providers: [
-        Credentials({
+        CredentialsProvider({
+           
             async authorize(credentials) {
 
                 dbConnect();
@@ -26,7 +24,7 @@ export default NextAuth({
 
                 // Find user in the database
                 const user = await User.findOne({ email }).select('+password')
-
+               
                 if (!user) {
                     throw new Error('Invalid Email or Password')
                 }
@@ -43,16 +41,39 @@ export default NextAuth({
             }
         })
     ],
-    callbacks: {    
+    callbacks: {
         jwt: async ({token, user}) => {
 
             user && (token.user = user)
             return Promise.resolve(token)
         },
-        session: async ({session, user}) => {
+        session: async ({session, token}) => {
 
-            session.user = user.user
+            session.user = token.user
             return Promise.resolve(session)
         }
-    }
+        // async jwt({token, user}) {
+
+        //     user &&
+        //   (token.user = {
+        //     permission: user.permission,
+        //     uid: user.id,
+        //     email: user.email,
+        //     name: user.name,
+        //   });
+            
+        //     return token
+        // },
+        // async session({session, user, token}) {
+
+        //     session.user = user.user
+        //     // session.accessToken = token.accessToken
+        //     return session
+        // }
+    },
+    // secret: process.env.JWT_SECRET,
+    // pages: {
+    //     signIn: '/'
+    //   },
+    // database: process.env.MONGO_URL, 
 })

@@ -5,10 +5,13 @@ import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import ButtonLoader from '../layout/ButtonLoader'
 
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+
 
   const submitHandler = async (e) => {
       e.preventDefault();
@@ -30,6 +33,7 @@ const Login = () => {
       }
 
   }
+
 
   return (
     <>
@@ -69,9 +73,10 @@ const Login = () => {
                                                 </div>
                                                 <div className="button-box btn-hover">
                                                     <button id="login_button"
-                            type="submit"
-                            className="btn btn-block py-3"
-                            disabled={loading ? true : false}>{loading ? <ButtonLoader /> : 'LOGIN'}</button>
+                                                        type="submit"
+                                                        className="btn btn-block py-3"
+                                                        
+                                                        disabled={loading ? true : false}>{loading ? <ButtonLoader /> : 'LOGIN'}</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -86,5 +91,7 @@ const Login = () => {
     
   )
 }
+
+
 
 export default Login

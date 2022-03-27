@@ -118,7 +118,7 @@ class MyDocument extends Document {
           {/* <script type="text/javascript" src='/assets/js/plugins/easyzoom.js'  async></script> */}
           <script type="text/javascript" src='/assets/js/plugins/slinky.min.js'  crossOrigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/ajax-mail.js'  crossOrigin="anonymous"></script>
-          <script src="https://kit.fontawesome.com/yourcode.js" crossOrigin="anonymous"></script>
+        
           {/* <script type="text/javascript" src='/assets/js/main.js' crossOrigin="anonymous"></script> */}
 
          
