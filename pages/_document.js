@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-sync-scripts */
+/* eslint-disable @next/next/no-css-tags */
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
@@ -63,6 +65,7 @@ class MyDocument extends Document {
           />          
 
           <link rel='stylesheet' href='/assets/css/vendor/bootstrap.min.css' />
+        
           <link
             rel='stylesheet'
             href='/assets/css/vendor/pe-icon-7-stroke.css'
@@ -79,14 +82,14 @@ class MyDocument extends Document {
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
+
           <link rel='stylesheet' href='/assets/css/plugins/jquery-ui.css' />
           <link rel='stylesheet' href='/assets/css/plugins/nice-select.css' />
           <link rel='stylesheet' href='/assets/css/plugins/select2.min.css' />
           <link rel='stylesheet' href='/assets/css/plugins/easyzoom.css' />
           <link rel='stylesheet' href='/assets/css/plugins/slinky.css' />
           <link rel='stylesheet' href='/assets/css/style.css' />        
-          
-        
+   
 
         </Head>
         
@@ -97,7 +100,7 @@ class MyDocument extends Document {
           <script type="text/javascript" src='/assets/js/vendor/jquery-3.6.0.min.js' crossOrigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/vendor/jquery-migrate-3.3.2.min.js'  crossOrigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/vendor/popper.min.js'  crossOrigin="anonymous"></script>
-          <script type="text/javascript" src='/assets/js/vendor/bootstrap.min.js'  crossOrigin="anonymous"></script>
+          <script type="text/javascript" src='/assets/js/vendor/bootstrap.min.js'  crossOrigin="anonymous" async></script>
           <script type="text/javascript" src='/assets/js/plugins/wow.js'  crossOrigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/scrollup.js'  crossOrigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/aos.js'  crossOrigin="anonymous"></script>
@@ -117,6 +120,9 @@ class MyDocument extends Document {
           <script type="text/javascript" src='/assets/js/plugins/ajax-mail.js'  crossOrigin="anonymous"></script>
           <script src="https://kit.fontawesome.com/yourcode.js" crossOrigin="anonymous"></script>
           {/* <script type="text/javascript" src='/assets/js/main.js' crossOrigin="anonymous"></script> */}
+
+         
+
         </body>
       </Html>
     );

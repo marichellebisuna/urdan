@@ -1,11 +1,10 @@
-module.exports = {
-  
+module.exports = {  
   env:{
      MONGO_URL:'mongodb+srv://mich:mich@urdan.ytiof.mongodb.net/urdan',
      // MONGO_URL:'mongodb+srv://mich:mich@urdan.ytiof.mongodb.net/urdan?retryWrites=true&w=majority',
-    CLOUDINARY_CLOUD_NAME: '',
-    CLOUDINARY_API_KEY: '',
-    CLOUDINARY_API_SECRET: '',
+    CLOUDINARY_CLOUD_NAME: 'myshops',
+    CLOUDINARY_API_KEY: '656495259662733',
+    CLOUDINARY_API_SECRET: '5xB4eQNn_Ggmgr-IdC5QDJpiATo',
   },
   images: {
     domains: ['res.cloudinary.com'],

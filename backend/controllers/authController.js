@@ -19,11 +19,11 @@ cloudinary.config({
 // Register user   =>   /api/auth/register
 const registerUser = catchAsyncErrors(async (req, res) => {
 
-    // const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    //     folder: 'bookit/avatars',
-    //     width: '150',
-    //     crop: 'scale'
-    // })
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: 'URDAN/avatar',
+        width: '150',
+        crop: 'scale'
+    })
 
     const { name, email, password } = req.body;
 
@@ -32,11 +32,8 @@ const registerUser = catchAsyncErrors(async (req, res) => {
         email,
         password,
         avatar: {
-            // public_id: result.public_id,
-            public_id: 'Public_Id',
-            url: 'Url'
-
-            // url: result.secure_url
+            public_id: result.public_id,
+            url: result.secure_url
         }
     });
 

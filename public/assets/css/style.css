@@ -83,6 +83,32 @@
 :root {
   scroll-behavior: unset;
 }
+/* Avatar */
+.avatar {
+  display: inline-block;
+  margin-bottom: 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+/* Header User Profile */
+
+.avatar-nav {
+  margin-right: 0.6rem;
+  height: 2.2rem;
+  width: 2.2rem;
+}
 /* Button Loader */
 .lds-dual-ring {
   display: inline-block;
@@ -107,7 +133,28 @@
     transform: rotate(360deg);
   }
 }
+/* Choose Avatar Button */
+input[type="file"]{
+  display:none;
+}
 
+.custom-file-label{
+ font-size:small !important;
+  color: #e97730;
+  border: 1px solid #e97730; 
+  cursor: pointer;
+  padding: 5px 10px 5px !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  z-index: 1; 
+}
+.custom-file-label:hover{
+  color: white;
+  background-color:#e97730;
+}
 /* Ratings */
 .rating-outer {
   display: inline-block;
@@ -199,6 +246,7 @@ button {
   text-decoration: none;
   cursor: pointer;
   color: #000000;
+
 }
 
 a,
@@ -606,6 +654,7 @@ textarea {
 
 .btn-hover a:hover, .btn-hover button:hover {
   color: #fff;
+
 }
 
 .btn-hover a::before, .btn-hover a::after, .btn-hover button::before, .btn-hover button::after {
@@ -619,6 +668,7 @@ textarea {
   -o-transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
   z-index: -1;
+ 
 }
 
 .btn-hover a::after, .btn-hover button::after {
@@ -626,6 +676,7 @@ textarea {
   left: auto;
   right: 0;
   background: #000000;
+ 
 }
 
 .btn-hover a.hover-border-radius::before, .btn-hover a.hover-border-radius::after, .btn-hover button.hover-border-radius::before, .btn-hover button.hover-border-radius::after {
@@ -1088,7 +1139,11 @@ textarea {
     left: -164px;
   }
 }
-
+/* @media only screen and (max-width: 991px) {
+  .main-menu {
+    visibility: hidden;
+  }
+} */
 .main-menu > nav > ul > li > ul.mega-menu-style > li > ul {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1183,6 +1238,7 @@ textarea {
   }
 }
 
+
 .header-action-wrap .header-action-style:last-child {
   margin-right: 0px;
 }
@@ -1201,6 +1257,7 @@ textarea {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+ 
   .header-action-wrap .header-action-cart {
     margin-right: 17px !important;
   }
@@ -10997,6 +11054,7 @@ textarea {
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   z-index: 1;
+  
 }
 
 /*-------- 23. My account style ---------*/
@@ -11120,6 +11178,7 @@ textarea {
   font-size: 14px;
   font-weight: 500;
   z-index: 1;
+  border-radius: 5% !important;
 }
 
 .myaccount-table {
