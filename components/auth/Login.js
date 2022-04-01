@@ -82,13 +82,19 @@ console.log(result)
                                                     <label>Remember me</label>
                                                     <Link href="/password/forgot" className="float-right mb-4">Forgot Password?</Link>
                                                 </div> */}
-                                                <div className="button-box btn-hover">
-                                                    <button id="login_button"
-                                                        type="submit"
-                                                        className="btn btn-block py-3"
-                                                        
-                                                        disabled={loading ? true : false}>{load ? <ButtonLoader /> : 'LOGIN'}</button>
+                                                <div className='d-flex justify-content-between align-items-baseline'>
+                                                    <div className="button-box btn-hover">
+                                                        <button id="login_button"
+                                                            type="submit"
+                                                            className="btn btn-block py-3"
+                                                            
+                                                            disabled={loading ? true : false}>{load ? <ButtonLoader /> : 'LOGIN'}</button>
+                                                    </div>
+                                                    <div>
+                                                        <Link href="/password/forgot" className="float-right mb-4">Forgot Password?</Link>
+                                                    </div>                           
                                                 </div>
+                                                
                                             </form>
                                         </div>
                                     </div>

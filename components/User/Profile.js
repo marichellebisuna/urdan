@@ -110,7 +110,7 @@ const Profile = () => {
                       <form action="#" method="post" onSubmit={submitHandler}>
                       <div className='form-group center '>
                         {/* <label htmlFor='avatar_upload' className='pb-1'>Avatar</label> */}
-                        <div className='d-flex align-items-center center wrapper'>
+                        <div className='d-flex align-items-center center wrapperr'>
                             <div>
                                 <figure className='avatarr ml-3 item-rtl'>
                                     <Image
