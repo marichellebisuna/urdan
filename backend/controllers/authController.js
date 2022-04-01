@@ -125,7 +125,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         await sendEmail({
             email: user.email,
-            subject: 'BookIT Password Recovery',
+            subject: 'Urdan Password Recovery',
             message
         })
 
