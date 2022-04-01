@@ -86,10 +86,13 @@
 /* Avatar */
 .avatar {
   display: inline-block;
-  margin-bottom: 0;
+position: absolute;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  /* top:5px; */
+  left:-30px;
+  z-index: 2;
 }
 
 .avatar img {
@@ -101,6 +104,14 @@
 .rounded-circle {
   border-radius: 50% !important;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .avatar-username {
+    display: none;
+  }
+}
+
 
 /* Header User Profile */
 
@@ -134,26 +145,58 @@
   }
 }
 /* Choose Avatar Button */
-input[type="file"]{
-  display:none;
+.wrapper .input-button input[type="file"]{
+  position:absolute;
+  left:-1px;
+  top:5px;
+  opacity: 0;
+  height: 150px !important;
+   cursor: pointer !important;
 }
 
-.custom-file-label{
- font-size:small !important;
-  color: #e97730;
-  border: 1px solid #e97730; 
-  cursor: pointer;
-  padding: 5px 10px 5px !important;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  -webkit-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
-  z-index: 1; 
+.wrapper{
+  height:150px;
+  width:150px;
+  border: 1px solid #e97730;
+  border-radius: 50%;
+  background-size: 'cover';
+  background-position: 'center';
+  overflow: hidden;
+  color: #e97730;  
+  position:relative;
+ 
 }
-.custom-file-label:hover{
-  color: white;
-  background-color:#e97730;
+.wrapper .avatarr{
+position: relative;
+top:8px;
+height:150px;
+width:150px;
+
+}
+.wrapper .custom-file-label{
+  position: absolute;
+  top:100px;
+  background-color: rgba(232, 232, 232, 0.7);
+  width:150px !important; 
+  transition: all ease-in;
+  }
+  
+
+.wrapper .input-button{
+z-index: 2;
+}
+.camera{
+  border:'1px solid #e97730';
+   width:'155px' !important;
+   z-index: 999;
+
+}
+.login-register-form .center{
+margin:auto !important; 
+}
+.camera:hover, .camera label:hover, .camera i:hover{
+  color: white !important;
+  background-color:#e97730 !important;
 }
 /* Ratings */
 .rating-outer {
@@ -1115,14 +1158,17 @@ textarea {
   text-transform: capitalize;
 }
 
+
 .main-menu > nav > ul > li > ul li:hover > a {
   color: #e97730;
+  background-color: white;
 }
 
 .main-menu > nav > ul > li > ul.sub-menu-style {
   width: 190px;
   text-align: left;
 }
+
 
 .main-menu > nav > ul > li > ul.mega-menu-style {
   width: 750px;
@@ -1139,11 +1185,7 @@ textarea {
     left: -164px;
   }
 }
-/* @media only screen and (max-width: 991px) {
-  .main-menu {
-    visibility: hidden;
-  }
-} */
+
 .main-menu > nav > ul > li > ul.mega-menu-style > li > ul {
   display: -webkit-box;
   display: -webkit-flex;

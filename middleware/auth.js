@@ -12,7 +12,6 @@ const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
     }
 
     req.user = session.user;
-    // res.send(req.user)
     next();
 
 })

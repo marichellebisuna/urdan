@@ -19,21 +19,22 @@ cloudinary.config({
 // Register user   =>   /api/auth/register
 const registerUser = catchAsyncErrors(async (req, res) => {
 
-    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        folder: 'URDAN/avatar',
-        width: '150',
-        crop: 'scale'
-    })
+    // const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    //     folder: 'URDAN/avatar',
+    //     width: '150',
+    //     crop: 'scale'
+    // })
 
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     const user = await User.create({
-        name,
+        firstName,
+        lastName,
         email,
         password,
         avatar: {
-            public_id: result.public_id,
-            url: result.secure_url
+            public_id: 'URDAN/avatar/avatar1_ml0r1m',
+            url: 'https://res.cloudinary.com/myshops/image/upload/v1648695116/URDAN/avatar/avatar1_ml0r1m.png'
         }
     });
 
@@ -62,7 +63,8 @@ const updateProfile = catchAsyncErrors(async (req, res) => {
     const user = await User.findById(req.user._id);
 
     if (user) {
-        user.name = req.body.name;
+        user.firstName = req.body.firstName;
+        user.lastName = req.body.lastName;
         user.email = req.body.email;
 
         if (req.body.password) user.password = req.body.password;
@@ -77,7 +79,7 @@ const updateProfile = catchAsyncErrors(async (req, res) => {
         await cloudinary.v2.uploader.destroy(image_id);
 
         const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-            folder: 'bookit/avatars',
+            folder: 'URDAN/avatar',
             width: '150',
             crop: 'scale'
         })
@@ -213,7 +215,8 @@ const getUserDetails = catchAsyncErrors(async (req, res) => {
 const updateUser = catchAsyncErrors(async (req, res) => {
 
     const newUserData = {
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         role: req.body.role,
     }

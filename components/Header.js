@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import MiniCart from './Home/MiniCart';
 import MobileMenu from './Home/MobileMenu';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux'
+import { loadUser } from '../redux/actions/userActions'
+import { useSession, signOut } from 'next-auth/react'
 import Search from './Search';
-
+import avatar from '../public/assets/images/avatar1.png'
 const Header = () => {
+  const dispatch = useDispatch()
+ 
+  const { user, loading } = useSelector(state => state.loadedUser)
+console.log(user)
+  useEffect(() => {
+      if (!user) {
+          dispatch(loadUser())
+      }
+ 
+  }, [dispatch, user])
+
+
+  const logoutHandler = () => {
+      signOut();
+  }
 
   return (
     <>
@@ -24,14 +40,15 @@ const Header = () => {
                 </Link>
               </div>
             </div>
-            <div className='col-lg-6 d-none d-lg-block d-flex justify-content-center '>
-              <div className='main-menu text-center'>
+            <div className='col-lg-7 d-none d-lg-block d-flex justify-content-center '>
+              <div className='main-menu text-center' >
                 <nav>
                   <ul>
                     <li>
                     <Link href='/'>
                       <a>HOME</a>  
-                    </Link>                    
+                    </Link>  
+                                  
                     </li>
                     <li>
                       <Link href='/products'>
@@ -44,31 +61,101 @@ const Header = () => {
                     </Link></li>
                        <li> <Link href='/contact'>
                       <a>CONTACT US</a>  
-                    </Link> </li>      
-                           
+                    </Link> </li>   
+                    {user && (   
+                    <li className='float-end'>
+                      
+                          <a >{user && user.avatar ?  
+                              <figure className="avatar avatar-nav">
+                                  <img
+                                      src={user.avatar && user.avatar.url}
+                                      alt={user && user.name}
+                                      className="rounded-circle"
+                                  />
+                              </figure> 
+                              :  <figure className="avatar avatar-nav">
+                                <Image
+                                            src={avatar}
+                                            className='rounded-circle'
+                                            alt='image'
+                                            width={150} height={150}
+                                        />
+                             
+                          </figure> 
+                            }
+                              <span className='text-uppercase mx-2' style={{color:'#535353'}}>Hi {user && user.firstName}!</span>
+                              <i className="fa fa-caret-down" aria-hidden="true"></i>
+                          </a>
+                    <ul className="sub-menu-style">
+
+                   {/* {user.role === 'admin' && (                     
+                       <>     
+                      <li>
+                        <Link href='/admin/rooms'>
+                          <a className="dropdown-item">Rooms</a>
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link href='/admin/bookings'>
+                          <a className="dropdown-item">Bookings</a>
+                        </Link>
+                      </li>   
+
+                      <li>
+                        <Link href='/admin/users'>
+                          <a className="dropdown-item">Users</a>
+                        </Link>
+                      </li>  
+
+                      <li>
+                        <Link href='/admin/reviews'>
+                          <a className="dropdown-item">Reviews</a>
+                        </Link>
+                      </li> 
+                          
+                           <hr />
+                       </>
+                   )} */}
+                    
+                          <li>
+                            <Link href='/bookings/me' passHref>
+                              <a className="dropdown-item">My Bookings</a>
+                            </Link>
+                          </li> 
+
+                          <li>
+                            <Link href='/me/update' passHref>
+                              <a className="dropdown-item">Profile</a>
+                            </Link>
+                          </li>   
+
+                          <li>
+                            <Link href='/' passHref>
+                              <a className="dropdown-item text-danger" onClick={logoutHandler}>Logout</a>
+                            </Link>
+                          </li>   
+                    </ul>
+                    </li>)
+ 
+                    }
                   </ul>
                 </nav>
               </div>
             </div>
-            <div className='col-lg-3 col-md-6 col-6'>
+            <div className='col-lg-2 col-md-6 col-6' >
               <div className='header-action-wrap'>
+            
+                
+               
                 <div className='header-action-style header-search-1'>
                   <a className='search-toggle' href='#'>
                     <i className='pe-7s-search s-open'></i>
                     <i className='pe-7s-close s-close'></i>
-                  </a>
-                  
-                 <Search/>
-                  
+                  </a>                  
+                 <Search/>                  
                 </div>
-                <div className='header-action-style'>
-                  <Link href='/login'>
-                  <a title='Login Register' >
-                    <i className='pe-7s-user'></i>
-                  </a>
-                  </Link>
-                  
-                </div>
+               
                 <div className='header-action-style'>
                 <Link href='/wishlist'>
                   <a title='Wishlist'>
@@ -76,12 +163,24 @@ const Header = () => {
                   </a>
                   </Link>
                 </div>
+ {!user &&
+                <div className='header-action-style px-2'>
+                  <Link href='/login'>
+                  <a title='Login Register' >
+                    <i className='pe-7s-user'></i>
+                  </a>
+                  </Link>                  
+                </div>
+}
                 <div className='header-action-style header-action-cart'>
                   <a className='cart-active' href='#'>
                     <i className='pe-7s-shopbag'></i>
                     <span className='product-count bg-black'>01</span>
                   </a>
                 </div>
+            
+                
+
                 <div className='header-action-style d-block d-lg-none'>
                   <a className='mobile-menu-active-button' href='#'>
                     <i className='pe-7s-menu'></i>
@@ -94,77 +193,7 @@ const Header = () => {
       </div>
     </header> 
 
-    {/* <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-bar header-area header-responsive-padding header-height-1">
-  <a className="navbar-brand" href="#"><Image src='/assets/images/logo/logo.png' alt='logo' width={136} height={33}/></a>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
-
-  <div className="collapse navbar-collapse main-menu" id="navbarSupportedContent">
-    <ul className="navbar-nav mx-auto">
-      <li className="nav-item active">
-      <Link href='/'>
-        <a className="nav-link" >HOME <span className="sr-only">(current)</span></a>
-      </Link>
-      </li>
-      <li className="nav-item">
-      <Link href='/products'>
-        <a className="nav-link">SHOP</a>
-      </Link>  
-      </li>
-      <li className="nav-item">
-      <Link href='/about'>
-        <a className="nav-link">ABOUT</a>
-      </Link>  
-      </li>
-      <li className="nav-item">
-      <Link href='/contact'>
-        <a className="nav-link">CONTACT US</a>
-      </Link>  
-      </li>    
-      
-    </ul></div>
-    <div className='col-lg-3 col-md-6 col-6'>
-              <div className='header-action-wrap'>
-                <div className='header-action-style header-search-1'>
-                  <a className='search-toggle' href='#'>
-                    <i className='pe-7s-search s-open'></i>
-                    <i className='pe-7s-close s-close'></i>
-                  </a>
-                  
-                 <Search/>
-                  
-                </div>
-                <div className='header-action-style'>
-                  <Link href='/login'>
-                  <a title='Login Register' >
-                    <i className='pe-7s-user'></i>
-                  </a>
-                  </Link>
-                  
-                </div>
-                <div className='header-action-style'>
-                <Link href='/wishlist'>
-                  <a title='Wishlist'>
-                    <i className='pe-7s-like'></i>
-                  </a>
-                  </Link>
-                </div>
-                <div className='header-action-style header-action-cart'>
-                  <a className='cart-active' href='#'>
-                    <i className='pe-7s-shopbag'></i>
-                    <span className='product-count bg-black'>01</span>
-                  </a>
-                </div>
-                <div className='header-action-style d-block d-lg-none'>
-                  <a className='mobile-menu-active-button' href='#'>
-                    <i className='pe-7s-menu'></i>
-                  </a>
-                </div>
-              </div>
-    </div>
-  
-</nav> */}
+   
     <MiniCart/>
     <MobileMenu/>
     </>

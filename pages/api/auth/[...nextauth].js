@@ -43,7 +43,7 @@ export default NextAuth({
     ],
     callbacks: {
         jwt: async ({token, user}) => {
-
+           
             user && (token.user = user)
             return Promise.resolve(token)
         },

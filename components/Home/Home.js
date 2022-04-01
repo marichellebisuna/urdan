@@ -9,6 +9,8 @@ import ProductAreaTab from './ProductAreaTab';
 import ServiceArea from './ServiceArea';
 import SingleBanner from './SingleBanner';
 import TwoBannerArea from './TwoBannerArea';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Home = () => {
  

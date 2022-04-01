@@ -75,6 +75,7 @@ class MyDocument extends Document {
             rel='stylesheet'
             href='/assets/css/vendor/font-awesome.min.css'
           />
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
           <link rel='stylesheet' href='/assets/css/plugins/animate.css' />
           <link rel='stylesheet' href='/assets/css/plugins/aos.css' />
           <link rel='stylesheet' href='/assets/css/plugins/magnific-popup.css' />
@@ -90,7 +91,6 @@ class MyDocument extends Document {
           <link rel='stylesheet' href='/assets/css/plugins/slinky.css' />
           <link rel='stylesheet' href='/assets/css/style.css' />        
    
-
         </Head>
         
         <body >        
@@ -118,10 +118,11 @@ class MyDocument extends Document {
           {/* <script type="text/javascript" src='/assets/js/plugins/easyzoom.js'  async></script> */}
           <script type="text/javascript" src='/assets/js/plugins/slinky.min.js'  crossOrigin="anonymous"></script>
           <script type="text/javascript" src='/assets/js/plugins/ajax-mail.js'  crossOrigin="anonymous"></script>
-        
+         
           {/* <script type="text/javascript" src='/assets/js/main.js' crossOrigin="anonymous"></script> */}
 
          
+       
 
         </body>
       </Html>

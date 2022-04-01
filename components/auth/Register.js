@@ -1,38 +1,59 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-
+import Cookies from 'js-cookie';
 import { toast } from 'react-toastify'
 import ButtonLoader from '../../components/layout/ButtonLoader'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser, clearErrors } from '../../redux/actions/userActions'
+import { registerUser, clearErrors, loadUser } from '../../redux/actions/userActions'
 
 import Breadcrumb from '../Breadcrumb'
 import Link from 'next/link'
-
+import { LOAD_USER_SUCCESS } from '../../redux/constants/userConstants'
+import axios from 'axios';
+import { signIn } from 'next-auth/react'
+import { urlObjectKeys } from 'next/dist/shared/lib/utils';
 
 
 const Register = () => {
   const dispatch = useDispatch()
   const router = useRouter();
+  const { redirect } = router.query;
 
   const [user, setUser] = useState({
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      password: ''
+      password: '',
   })
 
-  const { name, email, password } = user
+  const {firstName, lastName, email, password } = user
 
   const [avatar, setAvatar] = useState('');
-  const [avatarPreview, setAvatarPreview] = useState('/assets/images/avatar.png');
+  const [avatarPreview, setAvatarPreview] = useState('/assets/images/avatar1.png');
 
   const { success, error, loading } = useSelector(state => state.auth)
 
+  const [load, setLoad] = useState(false);
+  const { user:userInfo } = useSelector(state => state.loadedUser)
+
+
+  useEffect(() => {
+      if (!userInfo) {
+          dispatch(loadUser())
+      } 
+  }, [dispatch, userInfo])
+
   useEffect(() => {
 
-      if (success) {
-          router.push('/login')
+      if (success) {       
+          // router.push('/login')
+      signIn('credentials', {
+      redirect: false,
+      email: user.email,
+      password: user.password
+  })
+          router.push(redirect || '/');
       }
 
       if (error) {
@@ -40,38 +61,42 @@ const Register = () => {
           dispatch(clearErrors())
       }
 
-  }, [dispatch, success, error, router])
+  }, [dispatch, signIn, success, error, router])
 
 
-  const submitHandler = (e) => {
+  const submitHandler = async(e) => {
       e.preventDefault();
 
       const userData = {
-          name, email, password, avatar
+          firstName, lastName, email, password, 
       }
 
-      dispatch(registerUser(userData))
-
+    dispatch(registerUser(userData))
+    
   }
 
   const onChange = (e) => {
 
-      if (e.target.name === 'avatar') {
+      // if (e.target.name === 'avatar') {
 
-          const reader = new FileReader();
+      //     const reader = new FileReader();
 
-          reader.onload = () => {
-              if (reader.readyState === 2) {
-                  setAvatar(reader.result);
-                  setAvatarPreview(reader.result);
-              }
-          }
+      //     reader.onload = () => {
+      //         if (reader.readyState === 2) {
+      //             setAvatar(reader.result);
+      //             setAvatarPreview(reader.result);
+      //         }
+      //         // setAvatar(avatarPreview);
+      //         // setAvatarPreview(avatarPreview);  
+      //     }
 
-          reader.readAsDataURL(e.target.files[0])
+      //     reader.readAsDataURL(e.target.files[0])
 
-      } else {
+      // } else {
+         //setAvatar(avatarPreview);
+        //       setAvatarPreview(avatarPreview);  
           setUser({ ...user, [e.target.name]: e.target.value })
-      }
+      // }
 
   }
 
@@ -99,10 +124,53 @@ const Register = () => {
                 <div className="login-form-container">
                   <div className="login-register-form">
                     <form action="#" method="post" onSubmit={submitHandler}>
-                      <input type="text" placeholder="Username" id="name_field"
+                        {/* <div className='form-group mx-auto'>                           
+                            <div className='d-flex align-items-center '>
+                                <div className='pt-2 wrapper' style={{background:`url(${avatarPreview})`, width:'160px', height:'150px'
+                                        }}>
+                                     <figure className='avatarr ml-3 item-rtl'>
+                                        <Image
+                                            src={avatarPreview}
+                                            className='rounded-circle'
+                                            alt='image'
+                                            width={160} height={150}
+                                        />
+                                    </figure> 
+                                
+                               
+                                 <div className='px-3 input-button'>
+                                    <input
+                                        type='file'
+                                        name='avatar'
+                                         className='custom-file-input border-0'
+                                        id='customFile'
+                                        accept='images/*'
+                                      
+                                        onChange={onChange}                                       
+                                    />
+                                  <div className='camera d-flex flex-column pt-1' style={{border:'1px solid #e97730', width:'155px' }} >
+                                  <label className=' text-center' style={{border:'none'}} htmlFor='customFile'>
+                                                Change Avatar
+                                                 
+                                    </label>  
+                                    <span className='text-center'>
+                                      <i className="fa fa-camera" aria-hidden="true" ></i>
+                                    </span>  
+                                                                   
+                                 </div>                                   
+                                </div>     
+                                  </div>              
+                            </div>
+                        </div> */}
+                      <input type="text" placeholder="Fist Name" id="name_field"
                                 className="form-control"
-                                name='name'
-                                value={name}
+                                name='firstName'
+                                value={firstName}
+                                onChange={onChange}/>
+                                 <input type="text" placeholder="Last Name" id="name_field"
+                                className="form-control"
+                                name='lastName'
+                                value={lastName}
                                 onChange={onChange}/>
                        <input placeholder="Email"  type="email"
                                 id="email_field"
@@ -117,42 +185,10 @@ const Register = () => {
                                 value={password}
                                 onChange={onChange} placeholder="Password"/ >        
 
-                        <div className='form-group'>
-                            <label htmlFor='avatar_upload '>Avatar</label>
-                            <div className='d-flex align-items-center'>
-                                <div>
-                                    <figure className='avatar ml-3 item-rtl'>
-                                        <Image
-                                            src={avatarPreview}
-                                            className='rounded-circle'
-                                            alt='image'
-                                            width={150} height={150}
-                                        />
-                                    </figure>
-                                </div>
-                               
-                                 <div className='px-3 input-button'>
-                                    <input
-                                        type='file'
-                                        name='avatar'
-                                         className='custom-file-input border-0'
-                                        id='customFile'
-                                        accept='images/*'
-                                        onChange={onChange}                                       
-                                    />
-                                  
-                                  <label className='custom-file-label' htmlFor='customFile'>
-                                                Choose Avatar
-                                    </label>
-                                    
-                                    
-                                </div>     
-                                                
-                            </div>
-                          </div>
+                        
 
                           
-                      <div className="button-box btn-hover btn-block">
+                      <div className="button-box btn-hover mt-2">
                           <button id="login_button"
                             type="submit"
                             className="btn btn-block py-3"

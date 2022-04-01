@@ -4,9 +4,14 @@ import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
 
 const userSchema = new mongoose.Schema({
-    name: {
+    firstName: {
         type: String,
-        required: [true, 'Please enter your name'],
+        required: [true, 'Please enter your first name'],
+        maxLength: [50, 'Your name cannot exceed 50 characters']
+    },
+    lastName: {
+        type: String,
+        required: [true, 'Please enter your last name'],
         maxLength: [50, 'Your name cannot exceed 50 characters']
     },
     email: {
@@ -24,11 +29,13 @@ const userSchema = new mongoose.Schema({
     avatar: {
         public_id: {
             type: String,
-            required: true
+            // required: true
+             default:'URDAN/avatar/avatar1_ml0r1m'
         },
         url: {
             type: String,
-            required: true
+            //required: true
+            default:'https://res.cloudinary.com/myshops/image/upload/v1648695116/URDAN/avatar/avatar1_ml0r1m.png'
         }
     },
     role: {

@@ -1,30 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Breadcrumb from '../Breadcrumb'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import ButtonLoader from '../layout/ButtonLoader'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { loadUser } from '../../redux/actions/userActions'
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [load, setLoad] = useState(false);
 
+  const { user, loading } = useSelector(state => state.loadedUser)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+      if (!user) {
+          dispatch(loadUser())
+      } 
+  }, [dispatch, user])
 
 
   const submitHandler = async (e) => {
       e.preventDefault();
 
-      setLoading(true);
+      setLoad(true);
 
       const result = await signIn('credentials', {
           redirect: false,
           email,
           password
       })
-
-      setLoading(false)
+      localStorage.setItem('userInfo', JSON.stringify(result))
+console.log(result)
+      setLoad(false)
 
       if (result.error) {
           toast.error(result.error);
@@ -48,10 +58,11 @@ const Login = () => {
                                 <a className="active"  >
                                     <h4> login </h4>
                                 </a></Link>
-                                <Link href="/register">
-                                <a  >
+                                
+                                    {!user && <Link href="/register"><a  >
                                     <h4> register </h4>
-                                </a></Link>
+                                </a></Link>}
+                                
                             </div>
                             <div id="lg1" className="tab-pane active">
                                     <div className="login-form-container">
@@ -66,17 +77,17 @@ const Login = () => {
                                                 className="form-control"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}/>
-                                                <div className="login-toggle-btn">
+                                                {/* <div className="login-toggle-btn">
                                                     <input type="checkbox"/>
                                                     <label>Remember me</label>
                                                     <Link href="/password/forgot" className="float-right mb-4">Forgot Password?</Link>
-                                                </div>
+                                                </div> */}
                                                 <div className="button-box btn-hover">
                                                     <button id="login_button"
                                                         type="submit"
                                                         className="btn btn-block py-3"
                                                         
-                                                        disabled={loading ? true : false}>{loading ? <ButtonLoader /> : 'LOGIN'}</button>
+                                                        disabled={loading ? true : false}>{load ? <ButtonLoader /> : 'LOGIN'}</button>
                                                 </div>
                                             </form>
                                         </div>
