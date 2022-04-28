@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
-
+import Modal from '../ModalWindow'
 import Swiper, { Navigation} from 'swiper'; 
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const ProductArea = () => {  
+const [isOpen, setIsOpen] = useState(false);
 const { products} = useSelector(state => state.allProducts);    
     
 const [productItems, setProductItems] = useState(products)
@@ -77,9 +78,10 @@ breakpoints: {
                             </div>
                             <div className="product-action-wrap">
                                 <button className="product-action-btn-1" title="Wishlist"><i className="pe-7s-like"></i></button>
-                                <button className="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button className="product-action-btn-1" title="Quick View" onClick={() => setIsOpen(true)}>
                                     <i className="pe-7s-look"></i>
                                 </button>
+                                {isOpen && <Modal setIsOpen={setIsOpen} />}
                             </div>
                             <div className="product-action-2-wrap">
                                 <button className="product-action-btn-2" title="Add To Cart"><i className="pe-7s-cart"></i> Add to cart</button>
