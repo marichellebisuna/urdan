@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import Modal from '../ModalWindow'
 import Pagination from 'react-js-pagination';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 const ShopList = () => {
-
+    const [isOpen, setIsOpen] = useState(false);
     const router = useRouter()
 
     const { products,  productsCount, resPerPage, filteredProductsCount,} = useSelector(state => state.allProducts);  
@@ -59,11 +59,12 @@ const ShopList = () => {
                     <div className="product-list-badge badge-right badge-pink">
                         <span>-20%</span>
                     </div>
-                    <div className="product-list-quickview">
-                        <button className="product-action-btn-2" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    {/* <div className="product-list-quickview">
+                        <button className="product-action-btn-2" title="Quick View" onClick={() => setIsOpen(true)}>
                             <i className="pe-7s-look"></i>
                         </button>
-                    </div>
+                        {isOpen && <Modal setIsOpen={setIsOpen} />}
+                    </div> */}
                 </div>
             </div>
             <div className="col-lg-8 col-sm-7">
@@ -86,7 +87,12 @@ const ShopList = () => {
                     <div className="product-list-action">
                         <button className="product-action-btn-3" title="Add to cart"><i className="pe-7s-cart"></i></button>
                         <button className="product-action-btn-3" title="Wishlist"><i className="pe-7s-like"></i></button>
-                        <button className="product-action-btn-3" title="Compare"><i className="pe-7s-shuffle"></i></button>
+                        
+                        <button className="product-action-btn-3" title="Quick View" onClick={() => setIsOpen(true)}>
+                            <i className="pe-7s-look"></i>
+                        </button>
+                        {isOpen && <Modal setIsOpen={setIsOpen} />}
+                   
                     </div>
                 </div>
             </div>

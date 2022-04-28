@@ -28,26 +28,26 @@ const BrandLogo = () => {
                 </div></SwiperSlide>
                 <SwiperSlide>          <div className="swiper-slide">
                     <div className="single-brand-logo" data-aos="fade-up" data-aos-delay="400">
-                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-2.png" alt="" width={72}
-        height={102}/></a>
+                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-2.png" alt="" width={108}
+        height={84}/></a>
                     </div>
                 </div> </SwiperSlide>
                 <SwiperSlide>          <div className="swiper-slide">
                     <div className="single-brand-logo" data-aos="fade-up" data-aos-delay="600">
-                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-3.png" alt="" width={72}
-        height={102}/></a>
+                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-3.png" alt="" width={107}
+        height={93}/></a>
                     </div>
                 </div></SwiperSlide>
                 <SwiperSlide>         <div className="swiper-slide">
                     <div className="single-brand-logo" data-aos="fade-up" data-aos-delay="800">
-                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-4.png" alt="" width={72}
-        height={102}/></a>
+                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-4.png" alt="" width={111}
+        height={77}/></a>
                     </div>
                 </div> </SwiperSlide>
                 <SwiperSlide>         <div className="swiper-slide">
                     <div className="single-brand-logo" data-aos="fade-up" data-aos-delay="1000">
-                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-5.png" alt="" width={72}
-        height={102}/></a>
+                        <a href="#"><Image src="/assets/images/brand-logo/brand-logo-5.png" alt="" width={79}
+        height={98}/></a>
                     </div>
                 </div> </SwiperSlide>
                 <SwiperSlide>         <div className="swiper-slide">

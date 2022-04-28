@@ -8,8 +8,8 @@ const ServiceArea = () => {
         <div className="row">
             <div className="col-lg-3 col-md-6 col-sm-6 col-12 mb-30">
                 <div className="service-wrap" data-aos="fade-up" data-aos-delay="200">
-                    <div className="service-img">
-                        <Image src="/assets/images/icon-img/car.png" alt="" width={500} height={500}/>
+                    <div className="service-img pt-3">
+                        <Image src="/assets/images/icon-img/car.png" alt="" width={50} height={50}/>
                     </div>
                     <div className="service-content">
                         <h3>Free Shipping</h3>
@@ -19,8 +19,8 @@ const ServiceArea = () => {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 col-12 mb-30">
                 <div className="service-wrap" data-aos="fade-up" data-aos-delay="400">
-                    <div className="service-img">
-                        <Image src="/assets/images/icon-img/time.png" alt="" width={500} height={500}/>
+                    <div className="service-img pt-3">
+                        <Image src="/assets/images/icon-img/time.png" alt="" width={50} height={50}/>
                     </div>
                     <div className="service-content">
                         <h3>Support 24/7</h3>
@@ -30,8 +30,8 @@ const ServiceArea = () => {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 col-12 mb-30">
                 <div className="service-wrap" data-aos="fade-up" data-aos-delay="600">
-                    <div className="service-img">
-                        <Image src="/assets/images/icon-img/dollar.png" alt="" width={500} height={500}/>
+                    <div className="service-img pt-3">
+                        <Image src="/assets/images/icon-img/dollar.png" alt="" width={50} height={50}/>
                     </div>
                     <div className="service-content">
                         <h3>Money Return</h3>
@@ -41,8 +41,8 @@ const ServiceArea = () => {
             </div>
             <div className="col-lg-3 col-md-6 col-sm-6 col-12 mb-30">
                 <div className="service-wrap" data-aos="fade-up" data-aos-delay="800">
-                    <div className="service-img">
-                        <Image src="/assets/images/icon-img/discount.png" alt="" width={500} height={500}/>
+                    <div className="service-img pt-3">
+                        <Image src="/assets/images/icon-img/discount.png" alt="" width={50} height={50}/>
                     </div>
                     <div className="service-content">
                         <h3>Order Discount</h3>

@@ -2,9 +2,11 @@ import React, {useState, useEffect } from 'react'
 import Image from 'next/image'
 import {useSelector } from 'react-redux';
 import Link from 'next/link'
+import Modal from '../ModalWindow'
 
 const HotProducts = () => {
-  
+    const [isOpen, setIsOpen] = useState(false);
+
     function refreshPage() {
         setTimeout(()=>{
             window.location.reload(false);
@@ -73,9 +75,10 @@ const handleProducts=(category)=>{
                                 </div>
                                 <div className="product-action-wrap">
                                     <button className="product-action-btn-1" title="Wishlist"><i className="pe-7s-like"></i></button>
-                                    <button className="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button className="product-action-btn-1" title="Quick View" onClick={() => setIsOpen(true)}>
                                         <i className="pe-7s-look"></i>
                                     </button>
+                                    {isOpen && <Modal setIsOpen={setIsOpen} />}
                                 </div>
                                 <div className="product-action-2-wrap">
                                     <button className="product-action-btn-2" title="Add To Cart"><i className="pe-7s-cart"></i> Add to cart</button>
