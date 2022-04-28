@@ -6,6 +6,11 @@ import Modal from '../ModalWindow'
 
 const HotProducts = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [tab, setTab] = useState(0)
+    const isActive = (index) => {
+        if(tab === index) return "active";
+        return ""
+    }
 
     function refreshPage() {
         setTimeout(()=>{
@@ -50,7 +55,7 @@ const handleProducts=(category)=>{
             </div>
             <div className="tab-style-1 nav" data-aos="fade-up" data-aos-delay="400">
                 {categories && categories.map((category, index)=>
-                    <a className="active" href="#pro-1" data-bs-toggle="tab" key={index} onClick={()=>{handleProducts(category)}}>{category} </a>
+                    <a className={`${isActive(index)}`} href="#pro-1" data-bs-toggle="tab" key={index} onClick={()=>{handleProducts(category)}}>{category} </a>
                 )}
               
             </div>

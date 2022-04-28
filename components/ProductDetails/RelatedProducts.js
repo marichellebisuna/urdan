@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import Modal from '../ModalWindow'
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 const RelatedProducts = () => {
+    const [isOpen, setIsOpen] = useState(false);
 const { products} = useSelector(state => state.allProducts);  
     
 const [productItems, setProductItems] = useState(products)
@@ -51,9 +52,10 @@ setProductItems(products)
                               </div>
                               <div className="product-action-wrap">
                                   <button className="product-action-btn-1" title="Wishlist"><i className="pe-7s-like"></i></button>
-                                  <button className="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                  <button className="product-action-btn-1" title="Quick View" onClick={() => setIsOpen(true)}>
                                       <i className="pe-7s-look"></i>
                                   </button>
+                                  {isOpen && <Modal setIsOpen={setIsOpen} />}
                               </div>
                               <div className="product-action-2-wrap">
                                   <button className="product-action-btn-2" title="Add To Cart"><i className="pe-7s-cart"></i> Add to cart</button>
