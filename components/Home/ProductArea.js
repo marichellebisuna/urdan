@@ -1,23 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 const ProductArea = () => {
-    
+    const { products} = useSelector(state => state.allProducts)
+  
+const [producto, setProducto] = useState(products)
+
+    useEffect(()=>{
+        setProducto(products)
+        },[products])
+       
   return (
     <div className="product-area pb-100">
     <div className="container">
-        <div className="row">
-            <div className="col-lg-6 col-md-6">
+ 
+   
+        <div  className="row">   
+
+            <div className="col-lg-6 col-md-6">               
                 <div className="home-single-product-img" data-aos="fade-up" data-aos-delay="200">
-                    <a href="product-details.html"><Image src="/assets/images/product/single-product.png" alt="" width={504}
-        height={370}/></a>
+                    <Link href={`/product/${producto._id}`}>                  
+                    <Image src={ producto[0].images[0].url} alt="" width={504} height={370}/>
+                    </Link>
                 </div>
             </div>
             <div className="col-lg-6 col-md-6">
                 <div className="home-single-product-content">
-                    <h2 data-aos="fade-up" data-aos-delay="200">Modern Chair</h2>
-                    <h3 data-aos="fade-up" data-aos-delay="400">$20.25</h3>
-                    <p data-aos="fade-up" data-aos-delay="600">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo incididunt ut labore et dolore mt aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate</p>
+                    <h2 data-aos="fade-up" data-aos-delay="200">{producto[0].title}</h2>
+                    <h3 data-aos="fade-up" data-aos-delay="400">${producto[0].price}</h3>
+                    <p data-aos="fade-up" data-aos-delay="600">{producto[0].description}</p>
                     <div className="product-color" data-aos="fade-up" data-aos-delay="800">
                         <span>Color :</span>
                         <ul>
@@ -42,7 +55,9 @@ const ProductArea = () => {
                     </div>
                 </div>
             </div>
+
         </div>
+  
     </div>
 </div>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 const SingleBanner = () => {
   return (
@@ -9,9 +10,11 @@ const SingleBanner = () => {
                 <h2>New Dining <br/>Chair Set</h2>
                 <h3>Up To 30% Off</h3>
                 <div className="btn-style-2 btn-hover">
-                    <a href="product-details.html" className="btn">
+                <Link href='/products' >
+                    <a className="btn">
                         Shop Now
                     </a>
+                    </Link>
                 </div>
             </div>
         </div>
