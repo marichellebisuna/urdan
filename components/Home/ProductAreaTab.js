@@ -187,8 +187,8 @@ breakpoints: {
                     </div>
                 </div>
                 </div>    
-
-            }          
+            }   
+                   
         </div>    
     </div>
   )
