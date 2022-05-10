@@ -25,15 +25,16 @@ const products = () => {
                     </div>
                   </div>
               </div>
-        </div>
+        </div>   
     </div>
   )
 }
 
 export default products
 
-export const getServerSideProps = wrapper.getServerSideProps(async ({ req, query, store }) => {
+export const getServerSideProps = wrapper.getServerSideProps(async ({ req, query, store, params }) => {
   //  await store.dispatch({type:ALL_PRODUCTS_RESET})
   await store.dispatch(getProducts(req, query.page, query.name, query.color, query.size, query.price, query.category))
-
+ 
 })
+

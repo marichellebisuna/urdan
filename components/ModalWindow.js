@@ -1,37 +1,55 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap';
+import Image from 'next/image'
+import { useSelector } from 'react-redux'
+import { getProductDetails } from '../redux/actions/productActions'
+//import Product from '../backend/models/productsModel'
 
-const ModalWindow = ({setIsOpen}) => {
+const ModalWindow = ( pop, setShow) => {
+    //  const [show, setShow] = useState(false);
+     console.log(product)
+     console.log(setShow)
 
+
+
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
   return (
+      <>
+    {/* {products.map((product,index)=> */}
     <Modal
-        show={setIsOpen}       
+        show={show}       
         size="lg"        
-        centered        
-      >           
+        centered  
+        onHide={handleClose}      
+    >           
         <Modal.Body >
-        <div className="quickview-modal-style" onClick={() => setIsOpen(false)}>
+            <div>
+                {pop.title}
+            </div>
+         {/* <div className="quickview-modal-style" onClick={handleClose}>
             <div className="modal-dialog modal-dialog-centered" role="document" >
                 <div className="modal-content" >
                     <div className="modal-header">
-                        <a href="#" className="close" onClick={()=>setIsOpen(false)}><i className=" ti-close "></i></a>
+                        <a href="#" className="close" onClick={handleClose}><i className=" ti-close "></i></a>
                     </div>
                     <div className="modal-body">
                         <div className="row gx-0">
                             <div className="col-lg-5 col-md-5 col-12">
                                 <div className="modal-img-wrap">
-                                    <img src="assets/images/product/quickview.png" alt=""/>
-                                    {/* <Image 
+                                  
+                                    <Image 
                                 src={product.images[0].url}
-                                alt="" width={429} height={476}/> */}
+                                alt="" width={429} height={476}/>
                                 </div>
                             </div>
                             <div className="col-lg-7 col-md-7 col-12">
                                 <div className="product-details-content quickview-content">
-                                    <h2>New Modern Chair</h2>
+                                    <h2>{pop.title}</h2>
                                     <div className="product-details-price">
                                         <span className="old-price">$25.89 </span>
-                                        <span className="new-price">$20.25</span>
+                                        <span className="new-price">${pop.price}</span>
                                     </div>
                                     <div className="product-details-review">
                                         <div className="product-rating">
@@ -51,7 +69,7 @@ const ModalWindow = ({setIsOpen}) => {
                                             <li><a title="Purple" className="purple" href="#">purple</a></li>
                                         </ul>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ornare tincidunt neque vel semper. Cras placerat enim sed nisl mattis eleifend.</p>
+                                    <p>{pop.description}</p>
                                     <div className="product-details-action-wrap">
                                         <div className="product-quality">
                                             <input className="cart-plus-minus-box input-text qty text" name="qtybutton" value="1"/>
@@ -72,10 +90,13 @@ const ModalWindow = ({setIsOpen}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  */}
          </Modal.Body>
-       </Modal>
+    </Modal>
+       {/* )} */}
+     </> 
   )
 }
 
 export default ModalWindow
+

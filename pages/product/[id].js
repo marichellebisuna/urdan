@@ -8,7 +8,7 @@ export default function ProductDetailsPage() {
  
   return (
     <>    
-        <ProductDetails/>       
+        <ProductDetails/>  
     </>
   
   )

@@ -12,7 +12,7 @@ const Header = () => {
   const dispatch = useDispatch()
  
   const { user, loading } = useSelector(state => state.loadedUser)
-console.log(user)
+//console.log(user)
   useEffect(() => {
       if (!user) {
           dispatch(loadUser())
