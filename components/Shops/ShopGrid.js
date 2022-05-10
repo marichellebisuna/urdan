@@ -16,7 +16,7 @@ const ShopGrid = () => {
     setPopUpContent([product])  
     setShow(true)
 } 
-    const [isOpen, setIsOpen] = useState(false);
+  
     const router = useRouter()
 
     const {  products,  productsCount, resPerPage, filteredProductsCount,} = useSelector(state => state.allProducts);  
