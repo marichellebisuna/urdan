@@ -1,25 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import MiniCart from './Home/MiniCart';
 import MobileMenu from './Home/MobileMenu';
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from '../redux/actions/userActions'
-import { useSession, signOut } from 'next-auth/react'
+import { useSession, signOut, getSession } from 'next-auth/react'
 import Search from './Search';
 import avatar from '../public/assets/images/avatar1.png'
+
 const Header = () => {
   const dispatch = useDispatch()
- 
   const { user, loading } = useSelector(state => state.loadedUser)
-//console.log(user)
-  useEffect(() => {
-      if (!user) {
-          dispatch(loadUser())
-      }
- 
-  }, [dispatch, user])
+  const [sess, setSess] = useState(null);
+  const [me, setMe] = useState(null);
+  const {data} = useSession()
+  
 
+  useEffect(() => {
+      if (!user && !data) {
+          dispatch(loadUser())          
+      }  
+      setMe(user)
+      setSess(data)
+  }, [dispatch, user, data])
 
   const logoutHandler = () => {
       signOut();
@@ -62,14 +66,16 @@ const Header = () => {
                        <li> <Link href='/contact'>
                       <a>CONTACT US</a>  
                     </Link> </li>   
-                    {user && (   
-                    <li className='float-end'>
+                    {
+                    me ? 
+                    me &&
+                    ( <li className='float-end'>
                       
-                          <a >{user && user.avatar ?  
+                          <a >{me && me.avatar ?  
                               <figure className="avatar avatar-nav">
                                   <img
-                                      src={user.avatar && user.avatar.url}
-                                      alt={user && user.name}
+                                      src={me.avatar && me.avatar.url}
+                                      alt={me && me.name}
                                       className="rounded-circle"
                                   />
                               </figure> 
@@ -83,7 +89,7 @@ const Header = () => {
                              
                           </figure> 
                             }
-                              <span className='text-uppercase mx-2' style={{color:'#535353'}}>Hi {user && user.firstName}!</span>
+                              <span className='text-uppercase mx-3' style={{color:'#535353'}}>Hi {user && user.firstName}!</span>
                               <i className="fa fa-caret-down" aria-hidden="true"></i>
                           </a>
                     <ul className="sub-menu-style">
@@ -120,7 +126,75 @@ const Header = () => {
                     
                           <li>
                             <Link href='/bookings/me' passHref>
-                              <a className="dropdown-item">My Bookings</a>
+                              <a className="dropdown-item">My Purchases</a>
+                            </Link>
+                          </li> 
+
+                          <li>
+                            <Link href='/me/update' passHref>
+                              <a className="dropdown-item">Profile</a>
+                            </Link>
+                          </li>   
+
+                          <li>
+                            <Link href='/' passHref>
+                              <a className="dropdown-item text-danger" onClick={logoutHandler}>Logout</a>
+                            </Link>
+                          </li>   
+                    </ul>
+                    </li>)                    
+                    :                   
+                    sess &&                     
+                    ( <li className='float-end'>                      
+                          <a >{sess && sess.user.image &&
+                          
+                              <figure className="avatar avatar-nav">
+                                  <img
+                                      src={sess.user.image }
+                                      alt={sess && sess.user.name}
+                                      className="rounded-circle "
+                                  />
+                              </figure> 
+                             
+                            }
+                              <span className='text-uppercase mx-3' style={{color:'#535353'}}> Hi {sess && sess.user.name}!</span>
+                              <i className="fa fa-caret-down" aria-hidden="true"></i>
+                          </a>
+                    <ul className="sub-menu-style">
+
+                   {/* {user.role === 'admin' && (                     
+                       <>     
+                      <li>
+                        <Link href='/admin/rooms'>
+                          <a className="dropdown-item">Rooms</a>
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link href='/admin/bookings'>
+                          <a className="dropdown-item">Bookings</a>
+                        </Link>
+                      </li>   
+
+                      <li>
+                        <Link href='/admin/users'>
+                          <a className="dropdown-item">Users</a>
+                        </Link>
+                      </li>  
+
+                      <li>
+                        <Link href='/admin/reviews'>
+                          <a className="dropdown-item">Reviews</a>
+                        </Link>
+                      </li> 
+                          
+                           <hr />
+                       </>
+                   )} */}
+                    
+                          <li>
+                            <Link href='/bookings/me' passHref>
+                              <a className="dropdown-item">My Purchases</a>
                             </Link>
                           </li> 
 
@@ -137,7 +211,6 @@ const Header = () => {
                           </li>   
                     </ul>
                     </li>)
- 
                     }
                   </ul>
                 </nav>
@@ -163,7 +236,7 @@ const Header = () => {
                   </a>
                   </Link>
                 </div>
- {!user &&
+ {!data && !user &&
                 <div className='header-action-style px-2'>
                   <Link href='/login'>
                   <a title='Login Register' >
@@ -201,3 +274,30 @@ const Header = () => {
 };
 
 export default Header;
+
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  console.log(session)
+  if(!session){
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+  
+  return {
+    props: { session }
+  }
+}
+
+
+// export async function getServerSideProps (context) {
+//   return {
+//     props: {     
+//       session: await getSession(context),     
+//     }
+//   }
+// }

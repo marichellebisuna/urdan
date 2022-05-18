@@ -1,18 +1,21 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github";
+import FacebookProvider from "next-auth/providers/facebook";
 import User from '../../../backend/models/userModel'
 import dbConnect from '../../../config/dbConnect'
+// import Providers from "next-auth/providers"
 
 export default NextAuth({
    
     session: {
         strategy:"jwt"
+         //jwt: true
     },   
     providers: [
-        CredentialsProvider({
-           
+        CredentialsProvider({           
             async authorize(credentials) {
-
                 dbConnect();
 
                 const { email, password } = credentials;
@@ -37,9 +40,21 @@ export default NextAuth({
                 }
 
                 return Promise.resolve(user)
-
             }
-        })
+        }),
+        // OAuth authentication providers
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+        }),
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_ID,
+            clientSecret: process.env.FACEBOOK_SECRET,
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET,
+        }),
     ],
     callbacks: {
         jwt: async ({token, user}) => {
@@ -51,29 +66,9 @@ export default NextAuth({
 
             session.user = token.user
             return Promise.resolve(session)
-        }
-        // async jwt({token, user}) {
-
-        //     user &&
-        //   (token.user = {
-        //     permission: user.permission,
-        //     uid: user.id,
-        //     email: user.email,
-        //     name: user.name,
-        //   });
-            
-        //     return token
-        // },
-        // async session({session, user, token}) {
-
-        //     session.user = user.user
-        //     // session.accessToken = token.accessToken
-        //     return session
-        // }
+        }   
     },
-    // secret: process.env.JWT_SECRET,
-    // pages: {
-    //     signIn: '/'
-    //   },
-    // database: process.env.MONGO_URL, 
+    pages: {
+        signIn: '/login',       
+      }
 })

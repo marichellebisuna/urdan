@@ -13,6 +13,13 @@ module.exports = {
     SMTP_PASSWORD: "f34661aca1bb1f",
     SMTP_FROM_EMAIL: "URDAN",
     SMTP_FROM_NAME: "noreply@urdan.com.au",
+    GOOGLE_ID:"342851641995-r5n5tpqvafi5mrsgbhvvto0osblnlgti.apps.googleusercontent.com",
+    GOOGLE_SECRET:"B7btUY_gwx92d0smXLDxz_Sl",
+    FACEBOOK_ID:"5034784469935116",
+    FACEBOOK_SECRET:"6a927f3bb945f0a27ee35ef7ba98da37",
+    GITHUB_ID:"973c7af4dd04ef777055",
+    GITHUB_SECRET:"8a90dffc9135cd781cb9360561cd46d30aa30fdf"
+   
   },
   images: {
     domains: ['res.cloudinary.com'],

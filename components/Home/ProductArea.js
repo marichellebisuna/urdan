@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux'
 const ProductArea = () => {
     const { products} = useSelector(state => state.allProducts)
   
-const [producto, setProducto] = useState(products)
+const [product, setProduct] = useState(products)
 
     useEffect(()=>{
-        setProducto(products)
+        setProduct(products)
         },[products])
        
   return (
@@ -21,16 +21,16 @@ const [producto, setProducto] = useState(products)
 
             <div className="col-lg-6 col-md-6">               
                 <div className="home-single-product-img" data-aos="fade-up" data-aos-delay="200">
-                    <Link href={`/product/${producto._id}`}>                  
-                    <Image src={ producto[0].images[0].url} alt="" width={504} height={370}/>
+                    <Link href={`/product/${product._id}`}>                  
+                    <Image src={ product[0].images[0].url} alt="" width={504} height={370}/>
                     </Link>
                 </div>
             </div>
             <div className="col-lg-6 col-md-6">
                 <div className="home-single-product-content">
-                    <h2 data-aos="fade-up" data-aos-delay="200">{producto[0].title}</h2>
-                    <h3 data-aos="fade-up" data-aos-delay="400">${producto[0].price}</h3>
-                    <p data-aos="fade-up" data-aos-delay="600">{producto[0].description}</p>
+                    <h2 data-aos="fade-up" data-aos-delay="200">{product[0].title}</h2>
+                    <h3 data-aos="fade-up" data-aos-delay="400">${product[0].price}</h3>
+                    <p data-aos="fade-up" data-aos-delay="600">{product[0].description}</p>
                     <div className="product-color" data-aos="fade-up" data-aos-delay="800">
                         <span>Color :</span>
                         <ul>

@@ -27,14 +27,21 @@ const registerUser = catchAsyncErrors(async (req, res) => {
 
     const { firstName, lastName, email, password } = req.body;
 
+    const userExists = await User.findOne({ email })
+
+    if (userExists) {
+      res.status(400)
+      throw new Error('User already exists.')
+    }
+
     const user = await User.create({
         firstName,
         lastName,
         email,
         password,
         avatar: {
-            public_id: 'URDAN/avatar/avatar1_ml0r1m',
-            url: 'https://res.cloudinary.com/myshops/image/upload/v1648695116/URDAN/avatar/avatar1_ml0r1m.png'
+            public_id: 'URDAN/avatar/default_avatar',
+            url: 'https://res.cloudinary.com/myshops/image/upload/v1652240938/URDAN/avatar/default_avatar.png'
         }
     });
 

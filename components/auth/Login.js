@@ -1,39 +1,63 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../Breadcrumb'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import {providers, signIn, getSession, csrfToken, getProviders, getCsrfToken } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import ButtonLoader from '../layout/ButtonLoader'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadUser } from '../../redux/actions/userActions'
 
-const Login = () => {
+
+const Login = () => {      
+  const [providers, setProviders] = useState({});
+  const [csrfToken, setCsrfToken] = useState(null);
+  const [session, setSession] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [load, setLoad] = useState(false);
+  const [load, setLoad] = useState(false);  
 
   const { user, loading } = useSelector(state => state.loadedUser)
 
   const dispatch = useDispatch()
+
+//   useEffect(() => {
+//     if(session) return Router.push('/');
+//   },[session])
+
   useEffect(() => {
       if (!user) {
           dispatch(loadUser())
       } 
   }, [dispatch, user])
 
+  useEffect(() => {
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+    
+      const csr = await getCsrfToken();
+      setCsrfToken(csr);   
+      
+      const data = await getSession();
+      setSession(data); 
+     })();
+  }, []);
+
+console.log({providers, csrfToken, session})
 
   const submitHandler = async (e) => {
       e.preventDefault();
-
       setLoad(true);
-
       const result = await signIn('credentials', {
           redirect: false,
           email,
           password
       })
+  
       localStorage.setItem('userInfo', JSON.stringify(result))
-console.log(result)
+
+      console.log(result)
+      
       setLoad(false)
 
       if (result.error) {
@@ -97,8 +121,48 @@ console.log(result)
                                                 
                                             </form>
                                         </div>
+                                         
+                                        <div style={{maxWidth: '450px', width: '100%'}}
+                                        className="my-3 mx-auto">                                            
+                                           <div className="center">         
+                                                <div className="text-center my-4">Choose a Login Method</div>
+                                           </div>
+  
+     {providers &&
+        Object.values(providers).map((provider) => (
+
+           
+          <div key={provider.name}>
+        { provider.id==='credentials'?null :     
+            <button
+              onClick={() => {
+                signIn(provider.id);
+              }}
+              type="submit" className="btn w-100 my-2 py-3"
+              style={provider.id==='google'?{ background: '#f2573f', color: '#eee' }:provider.id==='facebook'?{ background: '#0404be', color: '#eee' }:{ background: '#444', color: '#eee' }}
+             
+            >
+              Sign in with {provider.name}
+            </button>
+}
+          </div>
+        ))}
+
+{/* <OAuth providers={providers} csrfToken={csrfToken} /> */}
+
+{console.log({providers, csrfToken, session})}
+    
+                                                {/* <button type="submit" className="btn w-100 my-2 py-3"
+                                                    style={{ background: '#f2573f', color: '#eee'}} onClick={() => ()=>signIn()}>Sign in with Google</button>
+                                                <button type="submit" className="btn w-100 my-2 py-3"
+                                                    style={{ background: '#0404be', color: '#eee'}} onClick={() => signIn()}>Sign in with Facebook</button>
+                                                <button type="submit" className="btn w-100 my-2 py-3"
+                                                    style={{ background: '#444', color: '#eee'}} onClick={() => signIn()}>Sign in with Github</button> */}
+                                        </div>                         
                                     </div>
-                                </div>
+                            </div>           
+
+                            
                         </div>
                     </div>
                 </div>
@@ -108,7 +172,20 @@ console.log(result)
     
   )
 }
-
+ 
 
 
 export default Login
+
+
+
+export async function getServerSideProps (context) {
+    return {
+      props: {
+       
+        session: await getSession(context),
+       
+      }
+    }
+  }
+
