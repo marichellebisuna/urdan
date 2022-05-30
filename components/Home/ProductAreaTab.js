@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import Router from 'next/router';
 import Swiper, { Navigation} from 'swiper';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { addToWish, clearErrors} from '../../redux/actions/wishActions';
+import { WISH_ADD_ITEM } from '../../redux/constants/wishConstants';
+import { wrapper } from '../../redux/store'
+import { toast } from 'react-toastify'
+import Cookies from 'js-cookie';
+import dbConnect from '../../config/dbConnect';
+
 
 const ProductArea = () => {
+ const dispatch = useDispatch();
 const [popUpContent, setPopUpContent] = useState([]);
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
@@ -19,15 +27,41 @@ const showModal = (product) =>{
     setShow(true)
 } 
 
-const { products} = useSelector(state => state.allProducts);
-const [productItems, setProductItems] = useState(products)
+  const { products} = useSelector(state => state.allProducts);
+ const [productItems, setProductItems] = useState(products)
+// console.log(products)
+
+// const { wishItems, error} = useSelector(state => state.wish);
+// const [wish, setWish] = useState('')
+// console.log(wishItems)
 
 useEffect(()=>{
-    
 setProductItems(products)
-
 },[products])
 
+
+// useEffect(()=>{
+//     const item = Cookies.get('wishItems')
+//     console.log(item)
+//     },[])
+
+//     useEffect(() => {
+//         const wishItems = localStorage.getItem('wishItems')
+// setWish(wishItems)
+//         //if(wishItems) dispatch({ type: WISH_ADD_ITEM, payload: wishItems })
+//     }, [])
+// console.log(wish)
+
+    // useEffect(() => {
+    //     localStorage.setItem('wishItems', JSON.stringify(wishItems))
+    // }, [wishItems])
+
+// const addToWishHandler = (product) => {
+//     Router.push(`/api/wishlist/${product}`);
+
+// //     dispatch(addToWish(product._id));
+// // Router.push('/wishlist');
+//   };
 
 const swiper = new Swiper('.product-slider-active-1', {
 loop: true,
@@ -90,12 +124,16 @@ breakpoints: {
                                     <span>-10%</span>
                                 </div>
                                 <div className="product-action-wrap">
-                                    <button className="product-action-btn-1" title="Wishlist"><i className="pe-7s-like"></i></button>
+                                    <button className="product-action-btn-1" title="Wishlist" onClick={()=> dispatch(addToWish(product._id))}>
+                                    {/* <button className="product-action-btn-1" title="Wishlist" onClick={addToWishHandler({product})}> */}
+                                    {/* <button className="product-action-btn-1" title="Wishlist" onClick={()=> dispatch(addToWishHandler(product._id))}> */}
+                                        
+                                        <i className="pe-7s-like"></i></button>
                                     <button className="product-action-btn-1" title="Quick View"
                                     onClick={()=>showModal( product ) }>   
                                         <i className="pe-7s-look"></i>
                                     </button>
-                                
+         
                             
                                 </div>
                                 <div className="product-action-2-wrap">
@@ -195,3 +233,4 @@ breakpoints: {
 }
 
 export default ProductArea
+

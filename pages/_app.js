@@ -3,12 +3,14 @@ import '../styles/globals.css';
 import Head from 'next/head';
 import Script from 'next/script'
 import { wrapper } from '../redux/store'
- import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react"
+import { StoreProvider } from '../redux/store';
 
 function MyApp({ Component, pageProps: { session, ...pageProps }}) {
 
   return (    
-      <>
+      <>    
+
      <SessionProvider session={pageProps.session}>
        <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -16,16 +18,21 @@ function MyApp({ Component, pageProps: { session, ...pageProps }}) {
 
       </Head>
            
-          <Script src='/assets/js/main.js' />  
-          
-         
-        <Layout>
+          <Script src='/assets/js/main.js' />            
+       
+         <Layout>
           <Component {...pageProps} />
         </Layout>
-        </SessionProvider>
-     
+       
+       
+        </SessionProvider> 
+       
     </>
   );
 }
 
-export default wrapper.withRedux(MyApp)
+  export default wrapper.withRedux(MyApp)
+ 
+
+
+

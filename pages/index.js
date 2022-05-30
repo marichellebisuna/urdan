@@ -12,9 +12,24 @@ export default function Index() {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ req, query, store}) => {
-  await store.dispatch(getProducts(req, query, query.page, query.name, query.color, query.size, query.price, query.category))
- 
- 
+  await store.dispatch(getProducts(req, query, query.page, query.name, query.color, query.size, query.price, query.category))  
 })
 
 
+// export async function getServerSideProps({query}) {
+//   const page = query.page || 1
+//   const category = query.category || 'all'
+//   const sort = query.sort || ''
+//   const search = query.search || 'all'
+
+//   const res = await getProducts(
+//     `product?limit=${page * 6}&category=${category}&sort=${sort}&title=${search}`
+//   )
+//   // server side rendering
+//   return {
+//     props: {
+//       products: res.products,
+//       result: res.result
+//     }, // will be passed to the page component as props
+//   }
+// }

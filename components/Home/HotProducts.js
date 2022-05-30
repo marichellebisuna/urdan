@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Modal from '../ModalWindow'
 
 const HotProducts = () => {
+    
 const [popUpContent, setPopUpContent] = useState([]);
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
@@ -29,7 +30,7 @@ const showModal = (product) =>{
         console.log('page to reload')
     }    
 
-const { products} = useSelector(state => state.allProducts)
+ const { products} = useSelector(state => state.allProducts)
 
 const [productItems, setProductItems] = useState(products)
 

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const dbConnect = ()=>{
+const dbConnect = () => {
 if(mongoose.connection.readyState>=1){
 return
 }

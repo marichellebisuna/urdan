@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
+import { cartReducer } from './cartReducers';
 
 import { allProductsReducer, productDetailsReducer, newReviewReducer, checkReviewReducer, newProductReducer, productReducer, productReviewsReducer, reviewReducer} from './ProductReducers'
 
  import { authReducer, userReducer, loadedUserReducer, forgotPasswordReducer, allUsersReducer, userDetailsReducer } from './userReducers'
+import { wishReducer } from './wishReducers';
 
 // import { checkBookingReducer, bookedDatesReducer, bookingsReducer, bookingDetailsReducer, bookingReducer } from './bookingReducers'
 
@@ -21,6 +23,8 @@ const reducer = combineReducers({
      allUsers: allUsersReducer,
      userDetails: userDetailsReducer,
      forgotPassword: forgotPasswordReducer,
+     cart: cartReducer,
+     wish: wishReducer,
     // checkBooking: checkBookingReducer,
     // bookedDates: bookedDatesReducer,
     // bookings: bookingsReducer,
@@ -28,5 +32,6 @@ const reducer = combineReducers({
     // bookingDetails: bookingDetailsReducer,
     
 })
+
 
 export default reducer

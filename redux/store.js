@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
 import reducers from './reducers/reducers'
-import data from './reducers/reducers'
+import { createStore,applyMiddleware } from 'redux';
+
 
 const bindMiddlware = (middlware) => {
     if (process.env.NODE_ENV !== 'production') {
