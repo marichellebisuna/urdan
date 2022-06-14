@@ -4,35 +4,34 @@ import Head from 'next/head';
 import Script from 'next/script'
 import { wrapper } from '../redux/store'
 import { SessionProvider } from "next-auth/react"
-import { StoreProvider } from '../redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import {useStore} from 'react-redux'
+//  import { Provider } from 'react-redux';
+// import {store,persistor} from "../redux/store";
 
 function MyApp({ Component, pageProps: { session, ...pageProps }}) {
-
-  return (    
-      <>    
-
+  const store = useStore((state)=>state);
+  return (             
      <SessionProvider session={pageProps.session}>
        <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <title>Urdan - Minimal eCommerce HTML Template</title>
+      </Head>           
+      <Script src='/assets/js/main.js' />      
 
-      </Head>
-           
-          <Script src='/assets/js/main.js' />            
-       
-         <Layout>
+      <PersistGate persistor={store.__persistor} loading={<div>Loading</div>} >          
+        <Layout>
           <Component {...pageProps} />
         </Layout>
-       
-       
-        </SessionProvider> 
-       
-    </>
+      </PersistGate>
+      :
+      <PersistGate persistor={store}>          
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PersistGate>
+      </SessionProvider>
   );
 }
 
-  export default wrapper.withRedux(MyApp)
- 
-
-
-
+export default wrapper.withRedux(MyApp)

@@ -37,10 +37,13 @@ import {
   CLEAR_ERRORS
 
 } from '../constants/productConstants'
+import data from '../../data/products'
 
-
+const initialState = {
+    products: data,    
+}
 // All products reducer
-export const allProductsReducer = (state = { products: [] }, action) => {
+export const allProductsReducer = (state = initialState, action) => {
   switch (action.type) {
     //Products reset
       case ALL_PRODUCTS_RESET:
@@ -48,21 +51,23 @@ export const allProductsReducer = (state = { products: [] }, action) => {
 
       case ADMIN_PRODUCTS_REQUEST:
           return {
+              ...state,
               loading: true,
           }
 
       case ALL_PRODUCTS_SUCCESS:
-          return {
+          return {    
+            ...state,         
               productsCount: action.payload.productsCount,
               resPerPage: action.payload.resPerPage,
               filteredProductsCount: action.payload.filteredProductsCount,
-              products: action.payload.products,
-            
+              products: action.payload.products,            
           }
 
       case ADMIN_PRODUCTS_SUCCESS:
-          return {
-              loading: false,
+          return { 
+              ...state,             
+              loading: false,              
               products: action.payload
           }
 
@@ -74,7 +79,6 @@ export const allProductsReducer = (state = { products: [] }, action) => {
 
       case CLEAR_ERRORS:
           return {
-              ...state,
               error: null
           }
 
@@ -84,10 +88,11 @@ export const allProductsReducer = (state = { products: [] }, action) => {
 }  
 
 // PRODUCT details reducer
-export const productDetailsReducer = (state = { product: {} }, action) => {
+export const productDetailsReducer = (state = { product: {data} }, action) => {
   switch (action.type) {
       case PRODUCT_DETAILS_SUCCESS:
           return {
+            ...state,
               product: action.payload
           }
 
@@ -98,7 +103,6 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
 
       case CLEAR_ERRORS:
           return {
-              ...state,
               error: null
           }
 
@@ -112,11 +116,13 @@ export const newProductReducer = (state = { product: {} }, action) => {
   switch (action.type) {
       case NEW_PRODUCT_REQUEST:
           return {
+            ...state,
               loading: true
           }
 
       case NEW_PRODUCT_SUCCESS:
           return {
+            ...state,
               loading: false,
               success: action.payload.success,
               product: action.payload.product
@@ -134,8 +140,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
           }
 
       case CLEAR_ERRORS:
-          return {
-              ...state,
+          return {             
               error: null
           }
 
@@ -150,17 +155,20 @@ export const productReducer = (state = {}, action) => {
       case UPDATE_PRODUCT_REQUEST:
       case DELETE_PRODUCT_REQUEST:
           return {
+            ...state,
               loading: true
           }
 
       case UPDATE_PRODUCT_SUCCESS:
           return {
+            ...state,
               loading: false,
               isUpdated: action.payload
           }
 
       case DELETE_PRODUCT_SUCCESS:
           return {
+            ...state,
               loading: false,
               isDeleted: action.payload
           }
@@ -199,11 +207,13 @@ export const newReviewReducer = (state = {}, action) => {
   switch (action.type) {
       case NEW_REVIEW_REQUEST:
           return {
+            ...state,
               loading: true
           }
 
       case NEW_REVIEW_SUCCESS:
           return {
+            ...state,
               loading: false,
               success: action.payload
           }
@@ -221,7 +231,6 @@ export const newReviewReducer = (state = {}, action) => {
 
       case CLEAR_ERRORS:
           return {
-              ...state,
               error: null
           }
 
@@ -235,11 +244,13 @@ export const checkReviewReducer = (state = { reviewAvailable: null }, action) =>
   switch (action.type) {
       case REVIEW_AVAILABILITY_REQUEST:
           return {
+            ...state,
               loading: true
           }
 
       case REVIEW_AVAILABILITY_SUCCESS:
           return {
+            ...state,
               loading: false,
               reviewAvailable: action.payload
           }
@@ -252,7 +263,6 @@ export const checkReviewReducer = (state = { reviewAvailable: null }, action) =>
 
       case CLEAR_ERRORS:
           return {
-              ...state,
               error: null
           }
 
@@ -266,11 +276,13 @@ export const productReviewsReducer = (state = { reviews: [] }, action) => {
   switch (action.type) {
       case GET_REVIEWS_REQUEST:
           return {
+            ...state,
               loading: true
           }
 
       case GET_REVIEWS_SUCCESS:
           return {
+            ...state,
               loading: false,
               reviews: action.payload
           }
@@ -283,7 +295,6 @@ export const productReviewsReducer = (state = { reviews: [] }, action) => {
 
       case CLEAR_ERRORS:
           return {
-              ...state,
               error: null
           }
 
@@ -297,11 +308,13 @@ export const reviewReducer = (state = {}, action) => {
   switch (action.type) {
       case DELETE_REVIEW_REQUEST:
           return {
+            ...state,
               loading: true
           }
 
       case DELETE_REVIEW_SUCCESS:
           return {
+            ...state,
               loading: false,
               isDeleted: action.payload
           }

@@ -1,82 +1,46 @@
 import axios from 'axios';
-import { useEffect } from 'react';
 import {
-  CLEAR_ERRORS,
   WISH_ADD_ITEM,
-  WISH_LIST_FAIL,
-  WISH_LIST_REQUEST,
-  WISH_LIST_SUCCESS,
-  WISH_REMOVE_ITEM
+  WISH_REMOVE_ITEM,
+  WISH_SAVE_SHIPPING_ADDRESS,
+  WISH_SAVE_PAYMENT_METHOD,
+  WISH_ADD_ITEM_FAIL,
 } from '../constants/wishConstants';
 
-export const listWish = ({
- 
-}) => async (dispatch) => {
-  try {
-    dispatch({ type: WISH_LIST_REQUEST });
-    const { data } = await axios.get('/api/products');
-    dispatch({ type: WISH_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: WISH_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-export const addToWish = (productId) => async (dispatch, getState) => {
+export const addToWish = (productId) => async (dispatch) => {
+  const { data } = await axios.get(`/api/products/${productId}`);
   
-   const { data } = await axios.get(`/api/products/${productId}`);
+   if(data.product.inStock === 0){
+  //if(data.inStock === 0){
 
-   if(data.product.inStock === 0)
-   return ({ type: WISH_ADD_ITEM_FAIL, payload: {error: 'This product is out of stock.'} }) 
-
-  //  const check = cart.every(item => {
-  //      return item._id !== product._id
-  //  })
-
-  //  if(!check) return ({ type: WISH_ADD_ITEM_FAIL, payload: {error: 'The product has been added to cart.'} }) 
-  //  console.log(data)
-
-  // const {
-  //   wish: { wishItems },
-  // } = getState();
-    dispatch({
-      type: WISH_ADD_ITEM,
-      payload: {
-        product: data.product._id,
-        title: data.product.title,
-        images: data.product.images,
-        price: data.product.price,
-        inStock: data.product.inStock        
-      },
-    });
-
-  localStorage.setItem(
-    'wishItems',
-    JSON.stringify(getState().wish.wishItems)
-  );
-  localStorage.setItem(
-    'shopping',
-    JSON.stringify(getState().shoppingCart.shopping)
-  );
-  // Router.push('/wish');
-
+  return ({ type: WISH_ADD_ITEM_FAIL, payload: {error: 'This product is out of stock.'} }) 
+  }else{
+     dispatch({
+     type: WISH_ADD_ITEM,
+     payload: {
+       product: data.product._id,
+       title: data.product.title,
+       images: data.product.images,
+       price: data.product.price,
+       inStock: data.product.inStock        
+     },
+    
+   }); 
+  }
+   
 };
-export const removeFromWish = (productId) => (dispatch, getState) => {
-  dispatch({ type: WISH_REMOVE_ITEM, payload: productId });
-
-  const {
-    wish: { wishItems },
-  } = getState();
-  localStorage.setItem('wishItems', JSON.stringify(wishItems));
+// export const addToWish = (product) => async (dispatch) => {
+//      dispatch({
+//      type: WISH_ADD_ITEM,
+//      payload: product
+//    });  
+// };
+export const removeFromWish = (productId) => (dispatch) => {
+  dispatch({ type: WISH_REMOVE_ITEM, payload: productId });   
 };
-
-export const clearErrors = () => async (dispatch) => {
-  dispatch({
-      type: CLEAR_ERRORS
-  })
-}
+export const saveShippingAddress = (data) => (dispatch) => {
+  dispatch({ type: WISH_SAVE_SHIPPING_ADDRESS, payload: data }); 
+};
+export const savePaymentMethod = (data) => (dispatch) => {
+  dispatch({ type: WISH_SAVE_PAYMENT_METHOD, payload: data });
+};

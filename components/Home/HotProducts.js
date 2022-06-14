@@ -1,20 +1,22 @@
 import React, {useState, useEffect } from 'react'
 import Image from 'next/image'
-import {useSelector } from 'react-redux';
+import {useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link'
 import Modal from '../ModalWindow'
+import { addToWish} from '../../redux/actions/wishActions';
+import { wrapper } from '../../redux/store'
 
 const HotProducts = () => {
-    
-const [popUpContent, setPopUpContent] = useState([]);
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-const showModal = (product) =>{    
+
+    const [popUpContent, setPopUpContent] = useState([]);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const showModal = (product) =>{    
     console.log(product.title);
     console.log(product.price);       
     setPopUpContent([product])  
     setShow(true)
-} 
+    } 
 
     const [isOpen, setIsOpen] = useState(false);
     const [tab, setTab] = useState(0)
@@ -29,14 +31,13 @@ const showModal = (product) =>{
         }, 500);
         console.log('page to reload')
     }    
-
+    const dispatch = useDispatch();
  const { products} = useSelector(state => state.allProducts)
-
 const [productItems, setProductItems] = useState(products)
 
-useEffect(()=>{
-setProductItems(products)
-},[products])
+// useEffect(()=>{
+// setProductItems(products)
+// },[products])
 
 const tempCategory=new Set(products.map(product=>product.category))
 let categories = Array.from(tempCategory)
@@ -74,11 +75,11 @@ const handleProducts=(category)=>{
         <div className="tab-content jump">
             <div id="pro-1" className="tab-pane active">
                 <div className="row">
-                    {productItems && productItems.length === 0 
+                    { products && products.length === 0 
                     ? 
                     <div className="alert alert-danger mt-2 w-100">No products found.</div>
                     : 
-                    productItems && productItems && productItems.map((product, index)=> <div key={index} className="col-lg-3 col-md-4 col-sm-6 col-12">
+                    products && products.map((product)=> <div key={product._id} className="col-lg-3 col-md-4 col-sm-6 col-12">
                         <div className="product-wrap mb-35" data-aos="fade-up" data-aos-delay="200">
                             <div className="product-img img-zoom mb-25">
                             <Link href={`/product/${product._id}`} onClick={refreshPage}>
@@ -90,7 +91,7 @@ const handleProducts=(category)=>{
                                     <span>-10%</span>
                                 </div>
                                 <div className="product-action-wrap">
-                                    <button className="product-action-btn-1" title="Wishlist"><i className="pe-7s-like"></i></button>
+                                    <button className="product-action-btn-1" title="Wishlist" onClick={()=> dispatch(addToWish(product._id))}><i className="pe-7s-like"></i></button>
                                     <button className="product-action-btn-1" title="Quick View"  onClick={()=>showModal( product ) }>  
                                         <i className="pe-7s-look"></i>
                                     </button>
@@ -188,4 +189,10 @@ const handleProducts=(category)=>{
   )
 }
 
-export default HotProducts
+// export const getServerSideProps = wrapper.getServerSideProps(async ({ req, query, store}) => {
+//     await store.dispatch(getProducts(req, query, query.page, query.name, query.color, query.size, query.price, query.category))
+   
+   
+//   })
+
+ export default HotProducts

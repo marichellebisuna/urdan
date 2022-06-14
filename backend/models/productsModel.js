@@ -73,11 +73,11 @@ price:{
 images:[{
    public_id:{
     type:String,
-    // required:true
+    required:true
    },
    url:{
     type:String,
-    // required:true
+    required:true
    }
  }],
  reviews:[{
@@ -102,7 +102,6 @@ images:[{
 }],
  user:{
    type:mongoose.Schema.ObjectId,
-   ref: 'User',
    required:false
  }
 }, {timestamps:true})

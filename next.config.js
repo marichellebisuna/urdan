@@ -18,10 +18,8 @@ module.exports = {
     FACEBOOK_ID:"5034784469935116",
     FACEBOOK_SECRET:"6a927f3bb945f0a27ee35ef7ba98da37",
     GITHUB_ID:"973c7af4dd04ef777055",
-    GITHUB_SECRET:"8a90dffc9135cd781cb9360561cd46d30aa30fdf",
-    MAILGUN_API_KEY:"4b1557bb24a694dda7805dc8ad0c7f70-1f1bd6a9-00b10dce",
-    MAILGUN_DOMAIN:"sandboxd664eb62c69d435a8757ecb595302249.mailgun.org",
-    MAILGUN_HOST:""
+    GITHUB_SECRET:"8a90dffc9135cd781cb9360561cd46d30aa30fdf"
+   
   },
   images: {
     domains: ['res.cloudinary.com'],

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import MiniCart from './Home/MiniCart';
@@ -10,11 +10,8 @@ import Search from './Search';
 import avatar from '../public/assets/images/avatar1.png'
 
 const Header = () => {
-
-
-
-   const dispatch = useDispatch()
-   const { user, loading } = useSelector(state => state.loadedUser)
+  const dispatch = useDispatch()
+  const { user, loading } = useSelector(state => state.loadedUser)
   const [sess, setSess] = useState(null);
   const [me, setMe] = useState(null);
   const {data} = useSession()

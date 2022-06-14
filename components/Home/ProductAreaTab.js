@@ -1,66 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelector, useDispatch } from 'react-redux';
-import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Swiper, { Navigation} from 'swiper';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { addToWish, clearErrors} from '../../redux/actions/wishActions';
-import { WISH_ADD_ITEM } from '../../redux/constants/wishConstants';
-import { wrapper } from '../../redux/store'
-import { toast } from 'react-toastify'
-import Cookies from 'js-cookie';
-import dbConnect from '../../config/dbConnect';
-
+import { addToWish } from '../../redux/actions/wishActions';
 
 const ProductArea = () => {
- const dispatch = useDispatch();
 const [popUpContent, setPopUpContent] = useState([]);
 const [show, setShow] = useState(false);
 const handleClose = () => setShow(false);
-const showModal = (product) =>{    
-    console.log(product.title);
-    console.log(product.price);       
+const showModal = (product) =>{      
     setPopUpContent([product])  
     setShow(true)
 } 
-
-  const { products} = useSelector(state => state.allProducts);
- const [productItems, setProductItems] = useState(products)
+ const dispatch = useDispatch();
+const { products} = useSelector(state => state.allProducts);
 // console.log(products)
-
-// const { wishItems, error} = useSelector(state => state.wish);
-// const [wish, setWish] = useState('')
-// console.log(wishItems)
-
-useEffect(()=>{
-setProductItems(products)
-},[products])
-
+// const [productItems, setProductItems] = useState('')
 
 // useEffect(()=>{
-//     const item = Cookies.get('wishItems')
-//     console.log(item)
-//     },[])
+    
+// setProductItems(products)
 
-//     useEffect(() => {
-//         const wishItems = localStorage.getItem('wishItems')
-// setWish(wishItems)
-//         //if(wishItems) dispatch({ type: WISH_ADD_ITEM, payload: wishItems })
-//     }, [])
-// console.log(wish)
+// },[products])
 
-    // useEffect(() => {
-    //     localStorage.setItem('wishItems', JSON.stringify(wishItems))
-    // }, [wishItems])
-
-// const addToWishHandler = (product) => {
-//     Router.push(`/api/wishlist/${product}`);
-
-// //     dispatch(addToWish(product._id));
-// // Router.push('/wishlist');
+// const addToCartHandler = (product) => {
+   
+//     dispatch(addToWish(product));
+    
 //   };
 
 const swiper = new Swiper('.product-slider-active-1', {
@@ -104,11 +75,11 @@ breakpoints: {
             </div>
             <div className="product-slider-active-1 swiper-container swiper ">
                 <div id="sliderActiveTwo" className="swiper-wrapper">
-                    {products && products.length === 0
+                    { products && products.length === 0
                     ?
                     <div className="alert alert-danger mt-2 w-100">No products found.</div>
                     :
-                    productItems && productItems.map(product=>(
+                    products && products.map((product)=>
 
                     <div className="swiper-slide" key={product._id}>
                         <div className="product-wrap" data-aos="fade-up" data-aos-delay="200">
@@ -124,16 +95,15 @@ breakpoints: {
                                     <span>-10%</span>
                                 </div>
                                 <div className="product-action-wrap">
-                                    <button className="product-action-btn-1" title="Wishlist" onClick={()=> dispatch(addToWish(product._id))}>
-                                    {/* <button className="product-action-btn-1" title="Wishlist" onClick={addToWishHandler({product})}> */}
-                                    {/* <button className="product-action-btn-1" title="Wishlist" onClick={()=> dispatch(addToWishHandler(product._id))}> */}
-                                        
-                                        <i className="pe-7s-like"></i></button>
+                                    <button className="product-action-btn-1" title="Wishlist" 
+                                     onClick={() => dispatch(addToWish(product._id))}
+                                     //onClick={addToCartHandler(product._id)}
+                                    ><i className="pe-7s-like"></i></button>
                                     <button className="product-action-btn-1" title="Quick View"
                                     onClick={()=>showModal( product ) }>   
                                         <i className="pe-7s-look"></i>
                                     </button>
-         
+                                
                             
                                 </div>
                                 <div className="product-action-2-wrap">
@@ -150,7 +120,7 @@ breakpoints: {
                             </div>
                         </div>
                     </div>
-    ))}
+    )}
         
             
                 </div>
@@ -233,4 +203,3 @@ breakpoints: {
 }
 
 export default ProductArea
-

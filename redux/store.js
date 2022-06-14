@@ -1,16 +1,20 @@
+import { createStore, applyMiddleware } from 'redux';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
 import thunkMiddleware from 'redux-thunk'
-import reducers from './reducers/reducers'
-import { createStore,applyMiddleware } from 'redux';
+ import combinedReducers from './reducers/reducers'
+import data from './reducers/reducers'
+import { persistStore, persistReducer } from "redux-persist";
+// import storage from './storage';
+import storage from "redux-persist/lib/storage";
+import expireReducer from "redux-persist-expire";
 
-
-const bindMiddlware = (middlware) => {
+const bindMiddleware = (middleware) => {
     if (process.env.NODE_ENV !== 'production') {
         const { composeWithDevTools } = require('redux-devtools-extension')
-        return composeWithDevTools(applyMiddleware(...middlware))
+        return composeWithDevTools(applyMiddleware(...middleware))
     }
 
-    return applyMiddleware(...middlware)
+    return applyMiddleware(...middleware)
 }
 
 const reducer = (state, action) => {
@@ -21,13 +25,30 @@ const reducer = (state, action) => {
         }
     return nextState
     } else {
-        return reducers(state, action)
+        return combinedReducers(state, action)
     }
 }
 
-const initStore = () => {
-    return createStore(reducer, bindMiddlware([thunkMiddleware]))
+const makeStore = ({isServer}) => {
+    if (isServer) {
+        return createStore(reducer, bindMiddleware([thunkMiddleware]))
+    }
+    else{        
+        const persistConfig = {
+            key: "root",
+            storage,
+            whiteList: ['cart', 'form', 'user', 'users', 'products', 'product', 'wishItems', 'shippingAddress', 'paymentMethod'],
+            transforms: [expireReducer(combinedReducers, { expireSeconds: 5 })],
+        }
+const persistedReducer = persistReducer(persistConfig, combinedReducers);
+
+const store = createStore(persistedReducer, bindMiddleware([thunkMiddleware]));
+
+store.__persistor = persistStore(store); 
+return store;
+    }
+
 }
 
-export const wrapper = createWrapper(initStore)
+export const wrapper = createWrapper(makeStore)
 

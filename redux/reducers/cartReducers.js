@@ -1,68 +1,54 @@
-import { getCookie, setCookie } from '../../utils/useCookie';
+/* eslint-disable import/prefer-default-export */
 import {
   CART_ADD_ITEM,
-  CART_EMPTY,
   CART_REMOVE_ITEM,
-  CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
+  CART_EMPTY,
+  CART_ADD_ITEM_FAIL,
 } from '../constants/cartConstants';
 
-
-const CARD = "CARD";
-
-const shopInitialState = {
-  // shopping: getCookie(CARD),
-  shoppingCart:localStorage.getItem("shopping")
-};
-
 export const cartReducer = (
-   state = { shoppingCart: shopInitialState.shoppingCart, shippingAddress: {} },
+  state = { cartItems: [], shippingAddress: {}, paymentMethod: 'paypal' },
   action
 ) => {
   switch (action.type) {
-    case CART_ADD_ITEM:
+    case CART_ADD_ITEM_FAIL:
+      return { ...state, error: action.payload };
+    case CART_ADD_ITEM: {
       const item = action.payload;
-
-      const existItem = state.shoppingCart.find(
-        (x) => x.product === item.product
-      );
-
-      if (existItem) {
+      const product = state.cartItems.find((x) => x.product === item.product);
+      if (product) {
         return {
           ...state,
-          shoppingCart: state.shoppingCart.map((x) =>
-            x.product === existItem.product ? item : x
+          error: '',
+          cartItems: state.cartItems.map((x) =>
+            x.product === product.product ? item : x
           ),
         };
-      } else {
-        return {
-          ...state,
-          shoppingCart: [...state.shoppingCart, item],
-        };
       }
-    case CART_REMOVE_ITEM:     
       return {
         ...state,
-        shoppingCart: state.shoppingCart.filter(
-          (x) => x.product !== action.payload
-        ),        
-      }; 
+        error: '',
+        cartItems: [...state.cartItems, item],
+      };
+    }
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        error: '',
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+      };
+    case CART_EMPTY:
+      return {
+        ...state,
+        error: '',
+        cartItems: [],
+      };
     case CART_SAVE_SHIPPING_ADDRESS:
-      return {
-        ...state,
-        shippingAddress: action.payload,
-      };
+      return { ...state, shippingAddress: action.payload };
     case CART_SAVE_PAYMENT_METHOD:
-      return {
-        ...state,
-        paymentMethod: action.payload,
-      };
-    case CART_EMPTY:     
-      return {
-        ...state,
-        shoppingCart: [],        
-      };
-      
+      return { ...state, paymentMethod: action.payload };
     default:
       return state;
   }
